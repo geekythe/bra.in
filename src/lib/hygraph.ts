@@ -1,3 +1,4 @@
+
 // Hygraph API client for fetching data
 
 const API_URL = "https://us-west-2.cdn.hygraph.com/content/cm9pvby8t01wm07wcm0lwwf5u/master"
@@ -5,7 +6,7 @@ const API_URL = "https://us-west-2.cdn.hygraph.com/content/cm9pvby8t01wm07wcm0lw
 /**
  * Fetch data from Hygraph CMS
  */
-export async function fetchHygraph<T>(query: string): Promise<T> {
+export async function fetchHygraph<T>(query: string): Promise<T | null> {
   try {
     const response = await fetch(API_URL, {
       method: "POST",
@@ -17,25 +18,30 @@ export async function fetchHygraph<T>(query: string): Promise<T> {
     })
 
     if (!response.ok) {
-      throw new Error(`Failed to fetch data: ${response.status}`)
+      console.error(`Hygraph API Error: ${response.status} ${response.statusText} for query: ${query.substring(0,100)}...`);
+      if (response.status === 429) {
+        console.error("Hygraph API rate limit exceeded. Data may be incomplete. Please try again later or optimize queries.");
+      }
+      return null;
     }
 
-    const { data, errors } = await response.json()
+    const responseBody = await response.json();
+    const { data, errors } = responseBody;
 
     if (errors) {
-      console.error("GraphQL errors:", errors)
-      throw new Error(`GraphQL errors: ${errors.map((e: any) => e.message).join(", ")}`)
+      console.error("Hygraph GraphQL errors:", errors, `for query: ${query.substring(0,100)}...`);
+      return null;
     }
 
-    return data as T
+    return data as T;
   } catch (error) {
-    console.error("Error fetching data from Hygraph:", error)
-    throw error
+    console.error("Network or other error fetching data from Hygraph:", error, `for query: ${query.substring(0,100)}...`);
+    return null;
   }
 }
 
 // Resume section queries
-export async function getWorkHistory() {
+export async function getWorkHistory(): Promise<WorkHistory[]> {
   const query = `
     query WorkHistory {
       works {
@@ -47,11 +53,11 @@ export async function getWorkHistory() {
     }
   `
 
-  const data = await fetchHygraph<{ works: WorkHistory[] }>(query)
-  return data.works
+  const data = await fetchHygraph<{ works: WorkHistory[] }>(query);
+  return data ? data.works : [];
 }
 
-export async function getEducation() {
+export async function getEducation(): Promise<Education[]> {
   const query = `
     query Education {
       educations {
@@ -63,11 +69,11 @@ export async function getEducation() {
     }
   `
 
-  const data = await fetchHygraph<{ educations: Education[] }>(query)
-  return data.educations
+  const data = await fetchHygraph<{ educations: Education[] }>(query);
+  return data ? data.educations : [];
 }
 
-export async function getTestimonials() {
+export async function getTestimonials(): Promise<Testimonial[]> {
   const query = `
     query Testimonials {
       testimonials {
@@ -81,11 +87,11 @@ export async function getTestimonials() {
     }
   `
 
-  const data = await fetchHygraph<{ testimonials: Testimonial[] }>(query)
-  return data.testimonials
+  const data = await fetchHygraph<{ testimonials: Testimonial[] }>(query);
+  return data ? data.testimonials : [];
 }
 
-export async function getDesignSkills() {
+export async function getDesignSkills(): Promise<Skill[]> {
   const query = `
     query DesignSkills {
       designskills {
@@ -95,11 +101,11 @@ export async function getDesignSkills() {
     }
   `
 
-  const data = await fetchHygraph<{ designskills: Skill[] }>(query)
-  return data.designskills
+  const data = await fetchHygraph<{ designskills: Skill[] }>(query);
+  return data ? data.designskills : [];
 }
 
-export async function getCodingSkills() {
+export async function getCodingSkills(): Promise<Skill[]> {
   const query = `
     query CodingSkills {
       codingskills {
@@ -109,12 +115,12 @@ export async function getCodingSkills() {
     }
   `
 
-  const data = await fetchHygraph<{ codingskills: Skill[] }>(query)
-  return data.codingskills
+  const data = await fetchHygraph<{ codingskills: Skill[] }>(query);
+  return data ? data.codingskills : [];
 }
 
 // Portfolio section queries
-export async function getPortfolioProjects() {
+export async function getPortfolioProjects(): Promise<PortfolioProjectHygraph[]> {
   const query = `
     query PortfolioProjects {
       portfolios {
@@ -166,39 +172,41 @@ export async function getPortfolioProjects() {
   `;
 
   try {
-    const data = await fetchHygraph<{
+    const result = await fetchHygraph<{
       portfolios: PortfolioProjectHygraph[];
       portfolio2s: PortfolioProjectHygraph[];
       portfolio3s: PortfolioProjectHygraph[];
     }>(query);
 
+    if (!result) return [];
+
     const allProjects: PortfolioProjectHygraph[] = [
-      ...(data.portfolios || []),
-      ...(data.portfolio2s || []),
-      ...(data.portfolio3s || []),
+      ...(result.portfolios || []),
+      ...(result.portfolio2s || []),
+      ...(result.portfolio3s || []),
     ];
 
     const projectsWithSource = allProjects.map((project, index) => ({
       ...project,
       uniqueId: `${project.number || project.title}-${index}`,
       source:
-        index < (data.portfolios?.length || 0)
+        index < (result.portfolios?.length || 0)
           ? "portfolios"
-          : index < (data.portfolios?.length || 0) + (data.portfolio2s?.length || 0)
+          : index < (result.portfolios?.length || 0) + (result.portfolio2s?.length || 0)
             ? "portfolio2s"
             : "portfolio3s",
     }));
 
     return projectsWithSource;
   } catch (error) {
-    console.error("Error in getPortfolioProjects:", error);
-    throw error;
+    console.error("Error processing portfolio projects after fetch:", error);
+    return []; // Return empty array on processing error
   }
 }
 
 
 // Combined Certifications section queries - Fetch from all three models
-export async function getCertifications() {
+export async function getCertifications(): Promise<CertificationHygraph[]> {
   const query = `
     query AllCertifications {
       certifications {
@@ -256,38 +264,40 @@ export async function getCertifications() {
   `
 
   try {
-    const data = await fetchHygraph<{
+    const result = await fetchHygraph<{
       certifications: CertificationHygraph[];
       certification2s: CertificationHygraph[];
       certification3s: CertificationHygraph[];
-    }>(query)
+    }>(query);
+
+    if(!result) return [];
 
     const allCertifications: CertificationHygraph[] = [
-      ...(data.certifications || []),
-      ...(data.certification2s || []),
-      ...(data.certification3s || []),
-    ]
+      ...(result.certifications || []),
+      ...(result.certification2s || []),
+      ...(result.certification3s || []),
+    ];
 
     const certificationsWithSource = allCertifications.map((cert, index) => ({
       ...cert,
       uniqueId: `${cert.credentialId || cert.title}-${index}`, 
       source:
-        index < (data.certifications?.length || 0)
+        index < (result.certifications?.length || 0)
           ? "certifications"
-          : index < (data.certifications?.length || 0) + (data.certification2s?.length || 0)
+          : index < (result.certifications?.length || 0) + (result.certification2s?.length || 0)
             ? "certification2s"
             : "certification3s",
-    }))
+    }));
 
-    return certificationsWithSource
+    return certificationsWithSource;
   } catch (error) {
-    console.error("Error in getCertifications:", error)
-    throw error
+    console.error("Error processing certifications after fetch:", error);
+    return []; // Return empty array on processing error
   }
 }
 
 // Blog section queries
-export async function getBlogs() {
+export async function getBlogs(): Promise<BlogHygraph[]> {
   const query = `
     query Blogs {
       blogs {
@@ -312,12 +322,12 @@ export async function getBlogs() {
     }
   `
 
-  const data = await fetchHygraph<{ blogs: BlogHygraph[] }>(query)
-  return data.blogs
+  const data = await fetchHygraph<{ blogs: BlogHygraph[] }>(query);
+  return data ? data.blogs : [];
 }
 
 // About section queries
-export async function getAboutServices() {
+export async function getAboutServices(): Promise<AboutService[]> {
   const query = `
     query AboutServices {
       aboutServices {
@@ -332,11 +342,11 @@ export async function getAboutServices() {
     }
   `
 
-  const data = await fetchHygraph<{ aboutServices: AboutService[] }>(query)
-  return data.aboutServices
+  const data = await fetchHygraph<{ aboutServices: AboutService[] }>(query);
+  return data ? data.aboutServices : [];
 }
 
-export async function getAboutClients() {
+export async function getAboutClients(): Promise<AboutClient[]> {
   const query = `
     query AboutClients {
       aboutClients {
@@ -350,8 +360,8 @@ export async function getAboutClients() {
     }
   `
 
-  const data = await fetchHygraph<{ aboutClients: AboutClient[] }>(query)
-  return data.aboutClients
+  const data = await fetchHygraph<{ aboutClients: AboutClient[] }>(query);
+  return data ? data.aboutClients : [];
 }
 
 // Type definitions
@@ -467,3 +477,4 @@ export interface AboutClient {
     }
   }
 }
+
