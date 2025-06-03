@@ -4,80 +4,76 @@
 
 @layer base {
   :root {
-    --background: 240 10% 4%; /* Very dark desaturated blue */
-    --foreground: 240 10% 95%; /* Very light grey/off-white */
+    --background: 252 32% 36%; /* Custom #4B3F7B */
+    --foreground: 240 10% 95%;
 
-    --card: 240 10% 8%; /* Slightly lighter dark blue than background */
+    --card: 252 32% 30%; /* Darker shade of background for cards */
     --card-foreground: 240 10% 95%;
 
-    --popover: 240 10% 8%;
+    --popover: 252 32% 28%; /* Even darker for popovers */
     --popover-foreground: 240 10% 95%;
 
     --primary: 260 100% 60%; /* Vibrant violet/magenta */
-    --primary-foreground: 260 10% 10%; /* Dark for contrast on bright primary */
+    --primary-foreground: 260 10% 10%;
 
     --secondary: 180 100% 50%; /* Bright cyan/teal */
-    --secondary-foreground: 180 10% 10%; /* Dark for contrast on bright secondary */
+    --secondary-foreground: 180 10% 10%;
 
-    --muted: 240 10% 15%; /* Darker grey */
-    --muted-foreground: 240 5% 65%; /* Lighter grey for muted text */
+    --muted: 252 32% 25%; /* Muted version of background */
+    --muted-foreground: 240 5% 65%;
 
     --accent: 330 100% 55%; /* Vibrant pink */
-    --accent-foreground: 330 10% 10%; /* Dark for contrast on bright accent */
+    --accent-foreground: 330 10% 10%;
 
     --destructive: 0 80% 55%; /* Neon red */
-    --destructive-foreground: 0 0% 100%; /* White */
+    --destructive-foreground: 0 0% 100%;
 
-    --border: 240 10% 20%; /* Dark border */
-    --input: 240 10% 10%; /* Dark input background */
-    --ring: 260 100% 70%; /* Brighter violet for focus rings */
-
-    --radius: 0.5rem;
+    --border: 252 32% 45%; /* Lighter border for contrast with new bg */
+    --input: 252 32% 28%; /* Dark input background, similar to popover */
+    --ring: 260 100% 70%;
 
     --chart-1: 260 100% 60%;
     --chart-2: 180 100% 50%;
     --chart-3: 330 100% 55%;
-    --chart-4: 45 100% 55%; /* Neon Yellow/Orange */
-    --chart-5: 120 100% 50%; /* Neon Green */
+    --chart-4: 45 100% 55%;
+    --chart-5: 120 100% 50%;
 
-    --sidebar-background: 240 10% 6%; 
+    --sidebar-background: 240 10% 6%;
     --sidebar-foreground: 240 10% 85%;
-    --sidebar-primary: 260 100% 60%; 
+    --sidebar-primary: 260 100% 60%;
     --sidebar-primary-foreground: 260 10% 10%;
     --sidebar-accent: 180 100% 50%;
     --sidebar-accent-foreground: 180 10% 10%;
     --sidebar-border: 240 10% 15%;
     --sidebar-ring: 260 100% 70%;
+
+    /* Section-specific backgrounds */
+    --section-bg-home: 240 10% 4%; /* Very dark desaturated blue */
+    --section-bg-about: 250 20% 10%; /* Dark purple/blue */
+    --section-bg-blog: 260 30% 12%; /* Dark indigo */
+    --section-bg-portfolio: 230 25% 9%; /* Darker blue */
+    --section-bg-contact: 245 15% 11%; /* Dark slate blue */
   }
 
   .dark {
-    /* Cyberpunk theme is default, dark can be an alternative if needed or just kept consistent */
-    --background: 240 10% 4%;
+    --background: 252 32% 36%;
     --foreground: 240 10% 95%;
-
-    --card: 240 10% 8%;
+    --card: 252 32% 30%;
     --card-foreground: 240 10% 95%;
-
-    --popover: 240 10% 8%;
+    --popover: 252 32% 28%;
     --popover-foreground: 240 10% 95%;
-
     --primary: 260 100% 60%;
     --primary-foreground: 260 10% 10%;
-
     --secondary: 180 100% 50%;
     --secondary-foreground: 180 10% 10%;
-
-    --muted: 240 10% 15%;
+    --muted: 252 32% 25%;
     --muted-foreground: 240 5% 65%;
-
     --accent: 330 100% 55%;
     --accent-foreground: 330 10% 10%;
-
     --destructive: 0 80% 55%;
     --destructive-foreground: 0 0% 100%;
-
-    --border: 240 10% 20%;
-    --input: 240 10% 10%;
+    --border: 252 32% 45%;
+    --input: 252 32% 28%;
     --ring: 260 100% 70%;
     
     --chart-1: 260 100% 60%;
@@ -94,6 +90,12 @@
     --sidebar-accent-foreground: 180 10% 10%;
     --sidebar-border: 240 10% 15%;
     --sidebar-ring: 260 100% 70%;
+
+    --section-bg-home: 240 10% 4%;
+    --section-bg-about: 250 20% 10%;
+    --section-bg-blog: 260 30% 12%;
+    --section-bg-portfolio: 230 25% 9%;
+    --section-bg-contact: 245 15% 11%;
   }
 }
 
@@ -111,7 +113,7 @@
 
 /* Custom animations for section transitions */
 .section-container > div {
-  transition: transform 0.7s ease-in-out; /* Smoother push effect */
+  transition: transform 0.8s cubic-bezier(0.645, 0.045, 0.355, 1.0); /* Empathy-like timing */
 }
 
 .animate-slide-to-top {
