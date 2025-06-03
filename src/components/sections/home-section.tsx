@@ -91,7 +91,7 @@ export default function HomeSection({ id }: SectionProps) {
              <p className="text-lg md:text-xl pl-3.5">10 Years In</p>
             
             <div className="mx-3 relative w-20 h-20">
-              <Image src="/inc500-logo.png" alt="Inc 500" fill className="object-contain" priority data-ai-hint="company logo award"/>
+              <Image src="/500.png" alt="Inc 500" fill className="object-contain" priority data-ai-hint="company logo award"/>
             </div>
             <p className="text-lg md:text-xl">Fortune 500</p>
           </div>

@@ -123,17 +123,17 @@ export default function CertificationsSection({ id }: SectionProps) {
 
 
   return (
-    <div id={id} className="h-full w-full bg-[#4b3f7b] overflow-y-auto py-12 px-4 md:px-8 relative animated-gradient">
+    <div className="h-full w-full bg-[#4b3f7b] overflow-y-auto py-12 px-4 md:px-8 relative">
       {selectedCertification ? (
         <motion.div
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}
           transition={{ duration: 0.3 }}
-          className="fixed inset-0 bg-[#4b3f7b] z-50 overflow-y-auto p-4 md:p-8"
+          className="fixed inset-0 bg-[#4b3f7b] z-50 overflow-y-auto"
         >
-          <div className="w-full fixed top-1/2 left-0 right-0 flex justify-center items-center transform -translate-y-1/2 px-4 pointer-events-none">
-            <div className="w-full max-w-7xl flex justify-between items-center pointer-events-auto">
+          <div className="w-full absolute top-1/2 flex justify-center items-center">
+            <div className="w-full max-w-7xl mt-8 flex justify-between items-center px-4 py-2 rounded">
               {getNavigationIndices().prev ? (
                 <button
                   onClick={() => setSelectedCertification(getNavigationIndices().prev)}
@@ -142,7 +142,7 @@ export default function CertificationsSection({ id }: SectionProps) {
                   <ChevronLeft />
                 </button>
               ) : (
-                <div></div> 
+                <div></div>
               )}
 
               {getNavigationIndices().next && (
@@ -156,7 +156,7 @@ export default function CertificationsSection({ id }: SectionProps) {
             </div>
           </div>
 
-          <div className="min-h-screen py-12 md:py-8">
+          <div className="min-h-screen py-12 md:py-8 px-4 md:px-8">
             <div className="max-w-6xl mx-auto">
               <button
                 onClick={() => setSelectedCertification(null)}
@@ -166,25 +166,22 @@ export default function CertificationsSection({ id }: SectionProps) {
                 <span>Back to certifications</span>
               </button>
 
-              <div className="rounded-lg cyberpunk-border bg-black/50 shadow-xl overflow-hidden">
-                <div className="h-64 bg-black/30 md:h-90 lg:h-124 xl:h-[36rem] border-2 border-gray-500/30 shadow-xl flex items-center justify-center p-4">
-                  <Image
-                    src={selectedCertification.image?.url || "https://placehold.co/800x600.png"}
+              <div className="rounded-lg cyberpunk-border bg-black shadow-xl overflow-hidden">
+                <div className="h-64 bg-black md:h-90 lg:h-124 xl:h-[36rem] border-2 border-gray-50 shadow-xl bg-background/20 flex items-center justify-center">
+                  <img
+                    src={selectedCertification.image.url}
                     alt={selectedCertification.title}
-                    width={800} 
-                    height={600}
-                    className="max-w-full max-h-full object-contain"
-                    data-ai-hint="certificate document"
+                    className="w-full h-full object-contain"
                   />
                 </div>
 
                 <div className="p-8">
                   <div className="max-w-4xl mx-auto">
-                    <div className="flex flex-col sm:flex-row justify-between items-start mb-4">
-                      <h1 className="text-2xl md:text-3xl lg:text-4xl font-bold text-white cyberpunk-text-glow mb-2 sm:mb-0">
+                    <div className="flex justify-between items-start mb-4">
+                      <h1 className="text-3xl md:text-4xl font-bold text-white cyberpunk-text-glow">
                         {selectedCertification.title}
                       </h1>
-                      <span className="text-sm font-medium px-3 py-1 rounded-full bg-primary/20 text-primary whitespace-nowrap">
+                      <span className="text-sm font-medium px-3 py-1 rounded-full">
                         {selectedCertification.date}
                       </span>
                     </div>
@@ -206,9 +203,13 @@ export default function CertificationsSection({ id }: SectionProps) {
                           <h3 className="text-sm font-medium text-white/70 mb-2">CATEGORY</h3>
                           <div className="flex flex-wrap gap-2">
                             {(() => {
-                               const catsRaw = selectedCertification.category;
-                               const catsArray = Array.isArray(catsRaw) ? catsRaw : (typeof catsRaw === 'string' ? catsRaw.split(",").map(cat => cat.trim()) : [String(catsRaw)]);
-                              return catsArray.map((category, index) => (
+                              const cats =
+                                typeof selectedCertification.category === "string" &&
+                                selectedCertification.category.includes(",")
+                                  ? selectedCertification.category.split(",").map((cat) => cat.trim())
+                                  : [selectedCertification.category]
+
+                              return cats.map((category, index) => (
                                 <span
                                   key={index}
                                   className="px-3 py-1 bg-[#EA3AB8]/20 text-[#EA3AB8] text-sm rounded-full"
@@ -269,13 +270,13 @@ export default function CertificationsSection({ id }: SectionProps) {
             </div>
             <h2 className="text-5xl font-bold text-white mb-12 cyberpunk-text-glow">Certifications</h2>
 
-            <div className="flex flex-wrap justify-center gap-x-6 gap-y-3 mb-12">
+            <div className="flex flex-wrap justify-center gap-8 mb-12">
               {filters.map((filter) => (
                 <button
                   key={filter.id}
                   onClick={() => setActiveFilter(filter.id)}
-                  className={`text-sm tracking-wider px-3 py-1 rounded-md transition-all ${
-                    activeFilter === filter.id ? "text-white font-medium bg-primary/30 cyberpunk-glow" : "text-white/70 hover:text-white hover:bg-primary/20"
+                  className={`text-sm tracking-wider ${
+                    activeFilter === filter.id ? "text-white font-medium" : "text-white/70 hover:text-white"
                   }`}
                 >
                   {filter.label}
@@ -286,7 +287,7 @@ export default function CertificationsSection({ id }: SectionProps) {
 
           {error && (
             <div className="text-center mb-8">
-              <div className="bg-destructive/20 border border-destructive text-destructive-foreground p-4 rounded-lg">
+              <div className="bg-red-500/20 border border-red-500 text-white p-4 rounded-lg">
                 <h3 className="font-bold mb-2">Error Loading Certifications</h3>
                 <p>{error}</p>
               </div>
@@ -295,12 +296,12 @@ export default function CertificationsSection({ id }: SectionProps) {
 
           {!isLoading && !error && filteredCertifications.length === 0 && (
             <div className="text-center mb-8">
-              <div className="bg-yellow-500/20 border border-yellow-500/50 text-yellow-200 p-4 rounded-lg">
+              <div className="bg-yellow-500/20 border border-yellow-500 text-white p-4 rounded-lg">
                 <h3 className="font-bold mb-2">No Certifications Found</h3>
                 <p>
                   {activeFilter === "all"
-                    ? "No certifications are available at the moment."
-                    : `No certifications found for category: ${activeFilter.toUpperCase()}`}
+                    ? "No certifications are available."
+                    : `No certifications found for category: ${activeFilter}`}
                 </p>
               </div>
             </div>
@@ -308,25 +309,22 @@ export default function CertificationsSection({ id }: SectionProps) {
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
             {isLoading ? (
-              <CertificationSkeleton />
+              <p className="text-white text-center w-full col-span-full">Loading...</p>
             ) : (
               filteredCertifications.map((certification) => (
                 <div
                   key={certification.uniqueId || certification.credentialId || certification.title}
-                  className="bg-background/10 backdrop-blur-sm rounded-md overflow-hidden shadow-md cursor-pointer cyberpunk-border transition-all hover:shadow-lg hover:border-primary"
+                  className="bg-background/10 backdrop-blur-sm rounded-md overflow-hidden shadow-md cursor-pointer cyberpunk-border"
                   onClick={() => setSelectedCertification(certification)}
                 >
-                  <div className="h-48 overflow-hidden bg-black/20 flex items-center justify-center p-2">
-                    <Image
-                      src={certification.image?.url || "https://placehold.co/300x200.png"}
+                  <div className="h-48 overflow-hidden bg-black flex items-center justify-center">
+                    <img
+                      src={certification.image?.url || "/placeholder.svg"}
                       alt={certification.title}
-                      width={300}
-                      height={200}
-                      className="max-w-full max-h-full object-contain transition-transform duration-300 hover:scale-105"
+                      className="w-full h-full object-contain transition-transform duration-300 hover:scale-105"
                       onError={(e) => {
-                        (e.target as HTMLImageElement).src = "https://placehold.co/300x200.png";
+                        e.currentTarget.src = "/placeholder.svg"
                       }}
-                      data-ai-hint="certificate badge"
                     />
                   </div>
                   <div className="p-6 text-center">

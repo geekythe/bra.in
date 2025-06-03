@@ -154,7 +154,7 @@ export default function CustomSidebar({ sections, activeSection, onSectionChange
       <div className="w-full flex flex-col items-center">
         <div className="w-full aspect-square bg-black flex items-center justify-center ">
           {/* Ensure /profile-image.png is in public folder */}
-          <img src="/profile-image.png" alt="Profile" className="w-full h-full object-cover" />
+          <img src="/log.png" alt="Profile" className="w-full h-full object-cover" />
         </div>
         <div className="hidden w-full md:flex">
           <div className="bg-[#6F42C1] w-1/2 py-2 flex items-center justify-center">
@@ -225,7 +225,7 @@ export default function CustomSidebar({ sections, activeSection, onSectionChange
           <div className="w-full flex flex-col">
             <div className="w-full aspect-square bg-black flex items-center justify-center">
              {/* Ensure /profile-image.png is in public folder */}
-              <img src="/profile-image.png" alt="Profile" className="w-full h-full object-cover" />
+              <img src="/log.png" alt="Profile" className="w-full h-full object-cover" />
             </div>
           </div>
 

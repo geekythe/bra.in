@@ -19,7 +19,7 @@ const FloridaMap: React.FC = () => {
     >
       {/* Placeholder: You can replace this with an actual map implementation */}
       <div className="p-4 bg-black/50 rounded-md">
-        Florida Map Placeholder (Implement with Leaflet/Mapbox)
+        
       </div>
     </div>
   );

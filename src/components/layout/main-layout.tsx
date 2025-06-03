@@ -15,7 +15,7 @@ interface MainLayoutProps {
   previousSectionId: SectionId | null;
 }
 
-const sectionOrder: SectionId[] = ['home', 'about', 'resume', 'portfolio', 'blog', 'certifications', 'contact'];
+const sectionOrder: SectionId[] = ['home', 'about', 'resume','certifications', 'portfolio', 'blog', 'contact'];
 
 export default function MainLayout({
   navItems,

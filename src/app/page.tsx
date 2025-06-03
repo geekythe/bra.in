@@ -24,9 +24,9 @@ const navItemsList: NavItem[] = [
   { id: 'home', title: 'Home', icon: HomeIcon, contentKey: 'home' },
   { id: 'about', title: 'About', icon: User, contentKey: 'about' },
   { id: 'resume', title: 'Resume', icon: FileText, contentKey: 'resume' },
+  { id: 'certifications', title: 'Certifications', icon: Award, contentKey: 'certifications' },
   { id: 'portfolio', title: 'Portfolio', icon: Briefcase, contentKey: 'portfolio' }, // Briefcase for portfolio
   { id: 'blog', title: 'Blog', icon: BookText, contentKey: 'blog' }, // Using BookText as per new sidebar's icon for 'blog'
-  { id: 'certifications', title: 'Certifications', icon: Award, contentKey: 'certifications' },
   { id: 'contact', title: 'Contact', icon: Mail, contentKey: 'contact' },
 ];
 
@@ -76,9 +76,9 @@ export default function PortfolioPage() {
     home: <HomeSection id="home" />,
     about: <AboutSection id="about" />,
     resume: <ResumeSection id="resume" />,
+    certifications: <CertificationsSection id="certifications" />,
     portfolio: <PortfolioSection id="portfolio" />,
     blog: <BlogSection id="blog" />,
-    certifications: <CertificationsSection id="certifications" />,
     contact: <ContactSection id="contact" />,
   };
 
@@ -98,4 +98,3 @@ export default function PortfolioPage() {
   );
 }
 
-    
