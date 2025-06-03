@@ -15,7 +15,8 @@ interface MainLayoutProps {
   previousSectionId: SectionId | null;
 }
 
-const sectionOrder: SectionId[] = ['home', 'about', 'blog', 'portfolio', 'contact']; // Added 'portfolio'
+// Ensure this order matches the order in app/page.tsx for correct animation logic
+const sectionOrder: SectionId[] = ['home', 'about', 'resume', 'portfolio', 'blog', 'certifications', 'contact'];
 
 
 export default function MainLayout({ 
@@ -55,7 +56,7 @@ export default function MainLayout({
                        activeSectionId === item.id ? "bg-sidebar-primary text-sidebar-primary-foreground" : "hover:bg-sidebar-accent hover:text-sidebar-accent-foreground"
                     )}
                   >
-                    <item.icon className="h-6 w-6" />
+                    <item.icon className="h-6 w-6" /> {/* Icons already h-6 w-6 */}
                     <span className="group-data-[collapsible=icon]:hidden">{item.title}</span>
                   </SidebarMenuButton>
                 </SidebarMenuItem>
@@ -72,34 +73,39 @@ export default function MainLayout({
               const isPrev = sectionId === previousSectionId;
 
               let transformClass = '';
-              let zIndex = 1;
+              let zIndex = 1; // Default z-index
 
               if (isActive) {
                 transformClass = 'animate-slide-to-center';
-                zIndex = 10;
+                zIndex = 10; // Active section on top
               } else if (isPrev && animationDirection !== 'none') {
+                // Section animating out
                 transformClass = animationDirection === 'up' ? 'animate-slide-to-top' : 'animate-slide-to-bottom';
-                zIndex = 5;
+                zIndex = 5; // Previous section below active, but above others
               } else {
+                // All other sections should be positioned off-screen
+                // Determine if they should be above or below the viewport
                 const myIndex = sectionOrder.indexOf(sectionId);
                 const activeIdx = sectionOrder.indexOf(activeSectionId);
-                if(previousSectionId === null && myIndex !== activeIdx){ 
-                   transformClass = myIndex < activeIdx ? 'animate-slide-from-top' : 'animate-slide-from-bottom';
-                } else if (previousSectionId !== null) { 
-                   transformClass = myIndex < activeIdx ? 'animate-slide-from-top' : 'animate-slide-from-bottom';
+                
+                // If previousSectionId is null (initial load), or if we are navigating
+                // position based on relation to activeSectionId
+                if (myIndex < activeIdx) {
+                    transformClass = 'animate-slide-from-top'; // Positioned above, ready to slide down if it becomes active
                 } else {
-                   transformClass = 'animate-slide-from-bottom';
+                    transformClass = 'animate-slide-from-bottom'; // Positioned below, ready to slide up if it becomes active
                 }
+                 zIndex = 1; // Ensure non-active, non-previous sections are at the bottom
               }
               
               return (
                 <div
                   key={sectionId}
                   className={cn(
-                    "absolute inset-0 w-full h-full bg-background",
-                    transformClass
+                    "absolute inset-0 w-full h-full", // Removed generic bg-background
+                    transformClass 
                   )}
-                  style={{ zIndex }}
+                  style={{ zIndex }} 
                 >
                   {cloneElement(child, { ...child.props })}
                 </div>
@@ -112,3 +118,4 @@ export default function MainLayout({
     </SidebarProvider>
   );
 }
+

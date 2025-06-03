@@ -1,59 +1,102 @@
-import Image from 'next/image';
-import { Button } from '@/components/ui/button';
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
-import type { AllSectionsContentData, SectionId } from '@/types';
-import ContentOptimizer from './content-optimizer'; // Import ContentOptimizer
+"use client"
 
-interface HomeSectionProps {
-  id: SectionId; // Added id prop
-  content: AllSectionsContentData['home'];
-  onNavigate: (sectionId: SectionId) => void; 
-}
+import { useState, useEffect, useRef } from "react"
+import Image from "next/image"
+import type { SectionProps } from "@/types"; // Import SectionProps
 
-export default function HomeSection({ id, content, onNavigate }: HomeSectionProps) {
-  const contentString = `Title: ${content.title}\nGreeting: ${content.greeting}\nIntroduction: ${content.introduction}\nFeatured Project: ${content.featuredProject.title} - ${content.featuredProject.description}`;
+// Accept id, even if not used directly, for MainLayout
+export default function HomeSection({ id }: SectionProps) {
+  const [typedText, setTypedText] = useState("")
+  const phrases = ["a blogger.", "a wordpress lover.", "an adventurer."]
+  const currentPhraseIndex = useRef(0)
+  const currentCharIndex = useRef(0)
+  const isDeleting = useRef(false)
+  const videoRef = useRef<HTMLVideoElement>(null) // Not used in current iframe setup
+
+  useEffect(() => {
+    const typeText = () => {
+      const currentPhrase = phrases[currentPhraseIndex.current]
+
+      if (isDeleting.current) {
+        setTypedText(currentPhrase.substring(0, currentCharIndex.current - 1))
+        currentCharIndex.current -= 1
+
+        if (currentCharIndex.current === 0) {
+          isDeleting.current = false
+          currentPhraseIndex.current = (currentPhraseIndex.current + 1) % phrases.length
+          setTimeout(typeText, 500) // Pause before typing next phrase
+          return
+        }
+      } else {
+        setTypedText(currentPhrase.substring(0, currentCharIndex.current + 1))
+        currentCharIndex.current += 1
+
+        if (currentCharIndex.current === currentPhrase.length) {
+          isDeleting.current = true
+          setTimeout(typeText, 1500) // Pause before deleting
+          return
+        }
+      }
+
+      const typingSpeed = isDeleting.current ? 50 : 150
+      setTimeout(typeText, typingSpeed)
+    }
+
+    // Start typing animation only on client-side
+    const timeoutId = setTimeout(typeText, 100); 
+
+    return () => {
+      clearTimeout(timeoutId); // Cleanup timeout
+    }
+  }, [])
+
+  // playbackRate is not applicable for YouTube iframe directly via ref like this
+  // useEffect(() => {
+  //   if (videoRef.current) {
+  //     videoRef.current.playbackRate = 0.5 
+  //   }
+  // }, [])
+
   return (
-    <div className="h-full overflow-y-auto p-6 md:p-12 flex flex-col items-center justify-center text-center bg-gradient-to-br from-primary/10 via-background to-background">
-      <header className="max-w-3xl mb-12">
-        <h1 className="text-5xl md:text-7xl font-headline font-bold mb-4 text-primary">
-          {content.greeting}
-        </h1>
-        <p className="text-xl md:text-2xl text-foreground/80 mb-8 font-body">
-          {content.introduction}
-        </p>
-        <Button size="lg" onClick={() => onNavigate('blog')} className="bg-accent hover:bg-accent/90 text-accent-foreground">
-          {content.callToAction}
-        </Button>
-      </header>
+    <div id={id} className="h-full w-full relative overflow-hidden bg-gradient-to-br from-[#1F1C6A] to-[#141144] animated-gradient">
+      {/* Video Background */}
+      <div className="absolute inset-0 z-0 overflow-hidden">
+        <div className="absolute inset-0 bg-[#4B3F7B]/80 z-10"></div>
+               <iframe
+          src="https://www.youtube.com/embed/sQ22pm-xvrE?autoplay=1&mute=1&loop=1&controls=0&showinfo=0&rel=0&iv_load_policy=3&modestbranding=1&playlist=sQ22pm-xvrE"
+          className="absolute w-[300%] h-[300%] top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 pointer-events-none"
+          frameBorder="0"
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+          allowFullScreen
+          title="Background Video"
+        ></iframe>
+      </div>
 
-      <section className="w-full max-w-4xl">
-        <h2 className="text-3xl font-headline font-semibold mb-8 text-foreground">Featured Project</h2>
-        <Card className="overflow-hidden shadow-xl hover:shadow-2xl transition-shadow duration-300">
-          <CardHeader>
-            <CardTitle className="text-2xl font-headline text-primary">{content.featuredProject.title}</CardTitle>
-          </CardHeader>
-          <CardContent className="grid md:grid-cols-2 gap-6 items-center">
-            <div>
-              <Image
-                src={content.featuredProject.imageUrl}
-                alt={content.featuredProject.title}
-                width={600}
-                height={400}
-                className="rounded-lg object-cover aspect-video"
-                data-ai-hint={content.featuredProject.dataAiHint}
-              />
+      {/* Content */}
+      <div className="relative z-10 h-full w-full flex flex-col items-center justify-end text-white text-center px-4 pb-12">
+        <div className="w-full flex flex-col  items-center mb-8 ">
+          <p className="text-xl mb-2 font-light cyberpunk-text-glow">Hi, I am</p>
+
+          <h1 className="text-5xl md:text-7xl font-bold mb-4 ">Kenneth Webber</h1>
+
+          <h4 className="text-xl mb-8">
+            I am{" "}
+            <strong className="text-[#21A2EF] cyberpunk-text-glow">
+              {typedText}
+              <span className="animate-pulse">|</span>
+            </strong>
+          </h4>
+
+          <div className="flex items-center justify-center mb-4">
+             <p className="text-lg md:text-xl pl-3.5">10 Years In</p>
+            
+            <div className="mx-3 relative w-20 h-20">
+              <Image src="/inc500-logo.png" alt="Inc 500" fill className="object-contain" priority data-ai-hint="company logo award"/>
             </div>
-            <div className="text-left">
-              <CardDescription className="text-foreground/70 font-body text-base">
-                {content.featuredProject.description}
-              </CardDescription>
-            </div>
-          </CardContent>
-        </Card>
-      </section>
-      <div className="mt-8">
-        <ContentOptimizer sectionId={id} sectionTitle={content.title} initialContent={contentString} />
+            <p className="text-lg md:text-xl">Fortune 500</p>
+          </div>
+        </div>
       </div>
     </div>
-  );
+  )
 }

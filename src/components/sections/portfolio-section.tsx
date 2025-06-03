@@ -1,80 +1,243 @@
-import Image from 'next/image';
-import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
-import { Button } from '@/components/ui/button';
-import { Badge } from '@/components/ui/badge';
-import type { AllSectionsContentData, SectionId, PortfolioProject } from '@/types';
-import { ExternalLink, Github } from 'lucide-react';
-import ContentOptimizer from './content-optimizer';
+"use client"
 
-interface PortfolioSectionProps {
-  id: SectionId;
-  content: AllSectionsContentData['portfolio'];
-}
+import { useState, useEffect } from "react"
+import { motion, AnimatePresence } from "framer-motion"
+import { ArrowLeft } from "lucide-react"
+import { getPortfolioProjects, type PortfolioProjectHygraph } from "@/lib/hygraph"
+import type { SectionProps } from "@/types";
+import Image from "next/image"; // Import Image
 
-export default function PortfolioSection({ id, content }: PortfolioSectionProps) {
-  const contentString = `Title: ${content.title}\nHeading: ${content.heading}\nProjects:\n${content.projects.map(p => `- ${p.title}: ${p.description} (Tech: ${p.technologies.join(', ')})`).join('\n')}`;
-  
+export default function PortfolioSection({ id }: SectionProps) {
+  const [activeFilter, setActiveFilter] = useState<string>("all")
+  const [selectedProject, setSelectedProject] = useState<PortfolioProjectHygraph | null>(null)
+  const [projects, setProjects] = useState<PortfolioProjectHygraph[]>([])
+  const [isLoading, setIsLoading] = useState<boolean>(true)
+  const [categories, setCategories] = useState<string[]>([])
+
+  useEffect(() => {
+    async function fetchProjects() {
+      try {
+        setIsLoading(true)
+        const projectsData = await getPortfolioProjects()
+        setProjects(projectsData)
+
+        const allCategories = projectsData.flatMap((project) => {
+          if (Array.isArray(project.category)) {
+            return project.category.map((c) => c.pcategory);
+          } else if (project.category && typeof project.category === 'object' && 'pcategory' in project.category) {
+            return [(project.category as { pcategory: string }).pcategory];
+          }
+          return [];
+        }).filter(Boolean);
+
+
+        const uniqueCategories = Array.from(new Set(allCategories as string[]))
+          .sort((a, b) => a.localeCompare(b))
+
+        setCategories(uniqueCategories)
+      } catch (error) {
+        console.error("Error fetching portfolio projects:", error)
+      } finally {
+        setIsLoading(false)
+      }
+    }
+
+    fetchProjects()
+  }, [])
+
+  const filteredProjects = activeFilter === "all"
+    ? projects
+    : projects.filter((project) => {
+        if (Array.isArray(project.category)) {
+          return project.category.some((cat) => cat.pcategory === activeFilter);
+        } else if (project.category && typeof project.category === 'object' && 'pcategory' in project.category) {
+          return (project.category as { pcategory: string }).pcategory === activeFilter;
+        }
+        return false;
+      });
+
+  const filters = [
+    { id: "all", label: "ALL" },
+    ...categories.map((category) => ({
+      id: category,
+      label: category.toUpperCase(),
+    })),
+  ]
+
+  const ProjectSkeleton = () => (
+    <>
+      {Array.from({ length: 6 }).map((_, i) => (
+        <div
+          key={i}
+          className="animate-pulse bg-background/10 backdrop-blur-sm rounded-md overflow-hidden shadow-md cyberpunk-border"
+        >
+          <div className="h-48 bg-background/20"></div>
+          <div className="p-6 text-center">
+            <div className="h-5 bg-background/20 rounded w-3/4 mx-auto mb-2"></div>
+            <div className="h-4 bg-background/20 rounded w-1/2 mx-auto"></div>
+          </div>
+        </div>
+      ))}
+    </>
+  )
+
   return (
-    <div className="h-full overflow-y-auto p-6 md:p-12 bg-background">
-      <div className="max-w-6xl mx-auto">
-        <header className="mb-12 text-center">
-          <h1 className="text-4xl md:text-5xl font-headline font-bold mb-4 text-primary">
-            {content.title}
-          </h1>
-          <p className="text-xl text-foreground/80 font-body">{content.heading}</p>
-        </header>
+    <div id={id} className="h-full w-full bg-[#6E3F7B] overflow-y-auto py-12 px-4 md:px-8 relative animated-gradient">
+      <AnimatePresence mode="wait">
+        {selectedProject ? (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.3 }}
+            className="fixed inset-0 bg-[#6E3F7B] z-50 overflow-y-auto"
+          >
+            <div className="min-h-screen py-8 px-4 md:px-8">
+              <div className="max-w-6xl mx-auto">
+                <button
+                  onClick={() => setSelectedProject(null)}
+                  className="flex items-center text-white hover:text-white/80 mb-8 group"
+                >
+                  <ArrowLeft className="mr-2 group-hover:-translate-x-1 transition-transform" />
+                  <span>Back to portfolio</span>
+                </button>
 
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-          {content.projects.map((project: PortfolioProject) => (
-            <Card key={project.id} className="flex flex-col overflow-hidden shadow-lg hover:shadow-xl transition-shadow duration-300 border-primary/30 hover:border-primary/70 bg-card">
-              <div className="relative w-full h-56">
-                <Image
-                  src={project.imageUrl}
-                  alt={project.title}
-                  fill
-                  style={{objectFit:"cover"}}
-                  className="object-cover"
-                  data-ai-hint={project.dataAiHint}
-                />
-              </div>
-              <CardHeader>
-                <CardTitle className="font-headline text-2xl text-accent">{project.title}</CardTitle>
-              </CardHeader>
-              <CardContent className="flex-grow space-y-3">
-                <CardDescription className="text-foreground/70 font-body text-sm min-h-[60px]">
-                  {project.description}
-                </CardDescription>
-                <div className="flex flex-wrap gap-2">
-                  {project.technologies.map(tech => (
-                    <Badge key={tech} variant="secondary" className="text-xs bg-secondary/70 text-secondary-foreground hover:bg-secondary">
-                      {tech}
-                    </Badge>
-                  ))}
+                <div className="bg-background/10 backdrop-blur-sm rounded-lg shadow-xl overflow-hidden cyberpunk-border">
+                  <div className="h-64 md:h-96 bg-background/20 overflow-hidden">
+                    <Image
+                      src={selectedProject.image?.url || "https://placehold.co/800x600.png"}
+                      alt={selectedProject.title}
+                      width={800}
+                      height={600}
+                      className="w-full h-full object-cover"
+                      loading="lazy"
+                      data-ai-hint="project image"
+                    />
+                  </div>
+
+                  <div className="p-8">
+                    <div className="max-w-4xl mx-auto">
+                      <h1 className="text-3xl md:text-4xl font-bold text-white mb-2 cyberpunk-text-glow">
+                        {selectedProject.title}
+                      </h1>
+                      <p className="text-white/70 text-lg mb-8">{selectedProject.subtitle}</p>
+
+                      <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-8">
+                        <div className="md:col-span-2">
+                          <h2 className="text-xl font-semibold text-white mb-4">Project Overview</h2>
+                          <p className="text-white/90 mb-6 leading-relaxed">{selectedProject.description}</p>
+                        </div>
+
+                        <div>
+                          <h2 className="text-xl font-semibold text-white mb-4">Project Details</h2>
+
+                          <div className="mb-6">
+                            <h3 className="text-sm font-medium text-white/70 mb-2">CATEGORIES</h3>
+                            <div className="flex flex-wrap gap-2">
+                              {(Array.isArray(selectedProject.category)
+                                ? selectedProject.category.map((c) => c.pcategory)
+                                : selectedProject.category && typeof selectedProject.category === 'object' && 'pcategory' in selectedProject.category ? [(selectedProject.category as {pcategory: string}).pcategory] : []
+                              ).map((category, index) => (
+                                <span
+                                  key={index}
+                                  className="px-3 py-1 bg-[#10B981]/20 text-[#10B981] text-sm rounded-full"
+                                >
+                                  {category?.charAt(0).toUpperCase() + category?.slice(1)}
+                                </span>
+                              ))}
+                            </div>
+                          </div>
+
+                          <div className="mb-6">
+                            <h3 className="text-sm font-medium text-white/70 mb-2">TECHNOLOGIES</h3>
+                            <div className="flex flex-wrap gap-2">
+                              {selectedProject.technology?.map((tech, index) => (
+                                <span
+                                  key={index}
+                                  className="px-3 py-1 bg-[#21A2EF]/20 text-[#21A2EF] text-sm rounded-full"
+                                >
+                                  {tech.techused}
+                                </span>
+                              ))}
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
                 </div>
-              </CardContent>
-              <CardFooter className="flex justify-start space-x-3 pt-4">
-                {project.liveLink && (
-                  <Button variant="outline" size="sm" asChild className="border-accent/50 text-accent hover:bg-accent hover:text-accent-foreground">
-                    <a href={project.liveLink} target="_blank" rel="noopener noreferrer">
-                      <ExternalLink className="mr-2 h-4 w-4" /> Live Demo
-                    </a>
-                  </Button>
-                )}
-                {project.repoLink && (
-                  <Button variant="ghost" size="sm" asChild className="text-foreground/70 hover:text-primary">
-                    <a href={project.repoLink} target="_blank" rel="noopener noreferrer">
-                      <Github className="mr-2 h-4 w-4" /> Source Code
-                    </a>
-                  </Button>
-                )}
-              </CardFooter>
-            </Card>
-          ))}
-        </div>
-        <div className="mt-12 text-center">
-          <ContentOptimizer sectionId={id} sectionTitle={content.title} initialContent={contentString} />
-        </div>
-      </div>
+              </div>
+            </div>
+          </motion.div>
+        ) : (
+          <div className="max-w-6xl mx-auto">
+            <div className="text-center mb-16">
+              <div className="flex justify-center mb-2">
+                <svg className="text-white" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none"
+                     stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"
+                     viewBox="0 0 24 24">
+                  <circle cx="12" cy="12" r="2" />
+                  <path d="M16.24 7.76a6 6 0 0 1 0 8.49m-8.48-.01a6 6 0 0 1 0-8.49m11.31-2.82a10 10 0 0 1 0 14.14m-14.14 0a10 10 0 0 1 0-14.14" />
+                </svg>
+              </div>
+              <h2 className="text-5xl font-bold text-white mb-12 cyberpunk-text-glow">portfolio</h2>
+
+              <div className="flex flex-wrap justify-center gap-6 mb-12">
+                {filters.map((filter) => (
+                  <button
+                    key={filter.id}
+                    onClick={() => setActiveFilter(filter.id)}
+                    className={`text-sm tracking-wider transition-colors ${
+                      activeFilter === filter.id
+                        ? "text-white font-bold underline"
+                        : "text-white/70 hover:text-white"
+                    }`}
+                  >
+                    {filter.label}
+                  </button>
+                ))}
+              </div>
+            </div>
+
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+              {isLoading ? (
+                <ProjectSkeleton />
+              ) : (
+                <AnimatePresence>
+                  {filteredProjects.map((project) => (
+                    <motion.div
+                      key={project.uniqueId || project.number || project.title}
+                      layout
+                      initial={{ opacity: 0, y: 20 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      exit={{ opacity: 0 }}
+                      transition={{ duration: 0.3 }}
+                      className="bg-background/10 backdrop-blur-sm rounded-md overflow-hidden shadow-md cursor-pointer cyberpunk-border"
+                      onClick={() => setSelectedProject(project)}
+                    >
+                      <div className="h-48 overflow-hidden bg-background/20">
+                        <Image
+                          src={project.image?.url || "https://placehold.co/600x400.png"}
+                          alt={project.title}
+                          width={600}
+                          height={400}
+                          className="w-full h-full object-cover transition-transform duration-300 hover:scale-105"
+                          loading="lazy"
+                          data-ai-hint="project thumbnail"
+                        />
+                      </div>
+                      <div className="p-6 text-center">
+                        <h3 className="text-lg font-semibold text-white">{project.title}</h3>
+                        <p className="text-sm text-white/70">{project.subtitle}</p>
+                      </div>
+                    </motion.div>
+                  ))}
+                </AnimatePresence>
+              )}
+            </div>
+          </div>
+        )}
+      </AnimatePresence>
     </div>
-  );
+  )
 }

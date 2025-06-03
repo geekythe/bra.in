@@ -1,59 +1,162 @@
-import Image from 'next/image';
-import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
-import { Button } from '@/components/ui/button';
-import type { AllSectionsContentData, SectionId } from '@/types';
-import { ArrowRight } from 'lucide-react';
-import ContentOptimizer from './content-optimizer';
+"use client"
 
-interface BlogSectionProps {
-  id: SectionId; // Added id prop
-  content: AllSectionsContentData['blog'];
-}
+import { useState, useEffect } from "react"
+import { motion, AnimatePresence } from "framer-motion"
+import { BookOpen, ArrowLeft, Calendar, Clock } from "lucide-react"
+import Image from "next/image"
+import { getBlogs, type BlogHygraph } from "@/lib/hygraph" // Ensure BlogHygraph is used
+import type { SectionProps } from "@/types";
 
-export default function BlogSection({ id, content }: BlogSectionProps) {
-  const contentString = `Title: ${content.title}\nArticles:\n${content.articles.map(article => `- ${article.title}: ${article.summary}`).join('\n')}`;
+export default function BlogSection({ id }: SectionProps) {
+  const [selectedBlog, setSelectedBlog] = useState<BlogHygraph | null>(null)
+  const [blogs, setBlogs] = useState<BlogHygraph[]>([])
+  const [isLoading, setIsLoading] = useState(true)
+
+  useEffect(() => {
+    async function fetchBlogs() {
+      try {
+        setIsLoading(true)
+        const blogsData = await getBlogs()
+        const sortedBlogs = [...blogsData].sort((a, b) => (a.order || 0) - (b.order || 0))
+        setBlogs(sortedBlogs)
+      } catch (error) {
+        console.error("Error fetching blogs:", error)
+      } finally {
+        setIsLoading(false)
+      }
+    }
+    fetchBlogs()
+  }, [])
+
+  const BlogSkeleton = () => (
+    <>
+      {[1, 2, 3, 4, 5, 6].map((item) => (
+        <div key={item} className="animate-pulse relative bg-background/10 backdrop-blur-sm cyberpunk-border">
+          <div className="absolute top-0 left-1/2 -translate-x-1/2 -translate-y-1/2 z-10 bg-background/20 rounded-full w-16 h-16"></div>
+          <div className="relative h-48 bg-background/20"></div>
+          <div className="p-6 text-center">
+            <div className="h-5 bg-background/20 rounded w-3/4 mx-auto"></div>
+          </div>
+        </div>
+      ))}
+    </>
+  )
+
   return (
-    <div className="h-full overflow-y-auto p-6 md:p-12 bg-background">
-      <div className="max-w-5xl mx-auto">
-        <header className="mb-12 text-center">
-          <h1 className="text-4xl md:text-5xl font-headline font-bold mb-4 text-primary">
-            {content.title}
-          </h1>
-          <p className="text-lg text-foreground/70 font-body">Insights, tutorials, and thoughts on web development and technology.</p>
-        </header>
+    <div id={id} className="h-full w-full overflow-y-auto bg-gradient-to-br from-[#F59E0B] to-[#C47D09] py-12 px-4 md:px-8 animated-gradient">
+      <AnimatePresence mode="wait">
+        {selectedBlog ? (
+          <motion.div
+            key="blog-detail"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.3 }}
+            className="max-w-4xl mx-auto"
+          >
+            <button
+              onClick={() => setSelectedBlog(null)}
+              className="flex items-center text-white hover:text-white/80 mb-8 group"
+            >
+              <ArrowLeft className="mr-2 group-hover:-translate-x-1 transition-transform" />
+              <span>Back to all blogs</span>
+            </button>
 
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-          {content.articles.map(article => (
-            <Card key={article.id} className="flex flex-col overflow-hidden shadow-lg hover:shadow-xl transition-shadow duration-300">
-              <div className="relative w-full h-48">
+            <div className="bg-background/10 backdrop-blur-sm rounded-lg shadow-xl overflow-hidden cyberpunk-border">
+              <div className="h-64 md:h-80 bg-background/20 overflow-hidden">
                 <Image
-                  src={article.imageUrl}
-                  alt={article.title}
-                  fill
-                  style={{objectFit:"cover"}}
-                  className="object-cover"
-                  data-ai-hint={article.dataAiHint}
+                  src={selectedBlog.image?.url || "https://placehold.co/1200x600.png"}
+                  alt={selectedBlog.title}
+                  width={1200}
+                  height={600}
+                  className="w-full h-full object-cover"
+                  data-ai-hint="blog article"
                 />
               </div>
-              <CardHeader>
-                <CardTitle className="font-headline text-xl text-accent">{article.title}</CardTitle>
-                <CardDescription className="text-xs text-muted-foreground">{article.date}</CardDescription>
-              </CardHeader>
-              <CardContent className="flex-grow">
-                <p className="text-foreground/80 font-body text-sm">{article.summary}</p>
-              </CardContent>
-              <CardFooter>
-                <Button variant="link" className="text-primary p-0 hover:text-accent">
-                  Read More <ArrowRight className="ml-2 h-4 w-4" />
-                </Button>
-              </CardFooter>
-            </Card>
-          ))}
-        </div>
-        <div className="mt-12 text-center">
-          <ContentOptimizer sectionId={id} sectionTitle={content.title} initialContent={contentString} />
-        </div>
-      </div>
+
+              <div className="p-8">
+                <div className="flex flex-wrap gap-2 mb-4">
+                  <span className="px-3 py-1 bg-[#F59E0B]/20 text-[#F59E0B] text-sm rounded-full flex items-center">
+                    {selectedBlog.category}
+                  </span>
+                  {selectedBlog.tags.map((tag, index) => (
+                    <span key={index} className="px-3 py-1 bg-background/20 text-white text-sm rounded-full">
+                      {tag.techused}
+                    </span>
+                  ))}
+                </div>
+
+                <h1 className="text-3xl md:text-4xl font-bold text-white mb-4 cyberpunk-text-glow">
+                  {selectedBlog.title}
+                </h1>
+
+                <div className="flex items-center text-white/70 mb-8">
+                  <span className="flex items-center mr-4">
+                    <Calendar size={16} className="mr-1" />
+                    {selectedBlog.date.day} {selectedBlog.date.month}
+                  </span>
+                  <span className="flex items-center">
+                    <Clock size={16} className="mr-1" />5 min read
+                  </span>
+                </div>
+
+                <div
+                  className="prose prose-lg max-w-none prose-invert prose-headings:text-white prose-a:text-[#F59E0B] text-white"
+                  dangerouslySetInnerHTML={{ __html: selectedBlog.content.html }}
+                />
+              </div>
+            </div>
+          </motion.div>
+        ) : (
+          <motion.div
+            key="blog-list"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.3 }}
+          >
+            <div className="max-w-6xl mx-auto">
+              <div className="text-center mb-16">
+                <div className="flex justify-center mb-2">
+                  <BookOpen className="text-white" size={24} />
+                </div>
+                <h2 className="text-5xl font-bold text-white mb-8 cyberpunk-text-glow">blog</h2>
+              </div>
+
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                {isLoading ? (
+                  <BlogSkeleton />
+                ) : (
+                  blogs.map((blog) => (
+                    <div
+                      key={blog.order || blog.title} 
+                      className="relative bg-background/10 backdrop-blur-sm cursor-pointer group cyberpunk-border rounded-md"
+                      onClick={() => setSelectedBlog(blog)}
+                    >
+                      <div className="absolute bottom-7 left-1/2 -translate-x-1/2 translate-y-1/4 z-10 bg-[#F59E0B] rounded-full w-16 h-16 flex flex-col items-center justify-center shadow-md cyberpunk-glow">
+                        <span className="text-xl font-bold text-white">{blog.date.day}</span>
+                        <span className="text-xs text-white/80">{blog.date.month}</span>
+                      </div>
+                      <div className="relative h-48 overflow-hidden rounded-t-md">
+                        <Image
+                          src={blog.image?.url || "https://placehold.co/600x400.png" }
+                          alt={blog.title}
+                          fill
+                          className="object-cover transition-transform duration-300 group-hover:scale-105"
+                          data-ai-hint="article technology"
+                        />
+                      </div>
+                      <div className="px-6 pt-10 pb-6 text-center">
+                        <h3 className="text-white font-medium tracking-wide">{blog.title}</h3>
+                      </div>
+                    </div>
+                  ))
+                )}
+              </div>
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </div>
-  );
+  )
 }

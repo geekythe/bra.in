@@ -47,12 +47,14 @@
     --sidebar-border: 240 10% 15%;
     --sidebar-ring: 260 100% 70%;
 
-    /* Section-specific backgrounds */
-    --section-bg-home: 240 10% 4%; /* Very dark desaturated blue */
-    --section-bg-about: 250 20% 10%; /* Dark purple/blue */
-    --section-bg-blog: 260 30% 12%; /* Dark indigo */
-    --section-bg-portfolio: 230 25% 9%; /* Darker blue */
-    --section-bg-contact: 245 15% 11%; /* Dark slate blue */
+    /* Section-specific backgrounds (placeholders, actual styles are in section components) */
+    --section-bg-home: 240 10% 4%; 
+    --section-bg-about: 250 20% 10%;
+    --section-bg-resume: 220 20% 12%; /* New */
+    --section-bg-portfolio: 230 25% 9%;
+    --section-bg-blog: 260 30% 12%;
+    --section-bg-certifications: 270 25% 11%; /* New */
+    --section-bg-contact: 245 15% 11%;
   }
 
   .dark {
@@ -93,8 +95,10 @@
 
     --section-bg-home: 240 10% 4%;
     --section-bg-about: 250 20% 10%;
-    --section-bg-blog: 260 30% 12%;
+    --section-bg-resume: 220 20% 12%;
     --section-bg-portfolio: 230 25% 9%;
+    --section-bg-blog: 260 30% 12%;
+    --section-bg-certifications: 270 25% 11%;
     --section-bg-contact: 245 15% 11%;
   }
 }
@@ -111,35 +115,39 @@
   }
 }
 
-/* Custom animations for section transitions */
 .section-container > div {
-  transition: transform 0.8s cubic-bezier(0.645, 0.045, 0.355, 1.0); /* Empathy-like timing */
+  transition-property: transform, opacity;
+  transition-duration: 0.8s; /* Empathy-like duration */
+  transition-timing-function: cubic-bezier(0.645, 0.045, 0.355, 1.0); /* Empathy-like timing */
 }
 
 .animate-slide-to-top {
   transform: translateY(-100%);
+  opacity: 0;
 }
 .animate-slide-to-bottom {
   transform: translateY(100%);
+  opacity: 0;
 }
 .animate-slide-to-center {
   transform: translateY(0%);
+  opacity: 1;
 }
 .animate-slide-from-top {
   transform: translateY(-100%);
+  opacity: 0;
 }
 .animate-slide-from-bottom {
   transform: translateY(100%);
+  opacity: 0;
 }
 
-/* Ensure full height for html and body for 100vh to work correctly */
 html, body, #__next {
   height: 100%;
   margin: 0;
   padding: 0;
 }
 
-/* Specific styles for fixed full-height layout */
 body > div:first-child {
   display: flex;
   flex-direction: column;
@@ -148,4 +156,63 @@ body > div:first-child {
 
 main {
   flex-grow: 1;
+}
+
+/* Cyberpunk Styles */
+.cyberpunk-text-glow {
+  text-shadow: 0 0 5px hsl(var(--accent)), 0 0 10px hsl(var(--accent)), 0 0 15px hsl(var(--accent)/0.7), 0 0 20px hsl(var(--accent)/0.5);
+}
+.cyberpunk-pink-glow {
+  filter: drop-shadow(0 0 5px hsl(var(--accent)/0.8)) drop-shadow(0 0 10px hsl(var(--accent)/0.6));
+}
+.cyberpunk-purple-glow {
+   filter: drop-shadow(0 0 5px hsl(var(--primary)/0.8)) drop-shadow(0 0 10px hsl(var(--primary)/0.6));
+}
+
+.cyberpunk-border {
+  border: 1px solid hsl(var(--primary)/0.5);
+  box-shadow: 0 0 3px hsl(var(--primary)/0.3), 0 0 5px hsl(var(--primary)/0.2);
+}
+
+@keyframes gradientAnimation {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+.animated-gradient {
+  background-size: 300% 300%; /* Larger size for smoother gradient shifts */
+  animation: gradientAnimation 20s ease infinite; /* Slower animation */
+}
+
+/* Prose overrides for blog content */
+.prose-invert h1, .prose-invert h2, .prose-invert h3, .prose-invert h4, .prose-invert h5, .prose-invert h6 {
+  color: hsl(var(--foreground)); /* Ensure headings are white */
+}
+.prose-invert p, .prose-invert li, .prose-invert blockquote {
+  color: hsl(var(--foreground)/0.9); /* Slightly less bright for paragraph text */
+}
+.prose-invert strong {
+  color: hsl(var(--foreground));
+}
+.prose-invert a {
+  color: hsl(var(--accent)); /* Use accent color for links */
+}
+.prose-invert code {
+  color: hsl(var(--secondary)); /* Use secondary for code */
+  background-color: hsl(var(--background)/0.5);
+  padding: 0.2em 0.4em;
+  border-radius: 0.25rem;
+}
+.prose-invert pre {
+   background-color: hsl(var(--background)/0.7);
+}
+.prose-invert pre code {
+  background-color: transparent;
+  padding: 0;
+}
+
+/* Ensure backdrop-filter works */
+.backdrop-blur-sm {
+  -webkit-backdrop-filter: blur(4px);
+  backdrop-filter: blur(4px);
 }
