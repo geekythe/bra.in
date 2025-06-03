@@ -3,9 +3,12 @@ import './globals.css';
 import { Toaster } from "@/components/ui/toaster";
 
 export const metadata: Metadata = {
-  title: 'PortfolioFlow',
-  description: 'A dynamic personal portfolio with animated section transitions.',
-};
+  title: "Kenneth Webber - Personal Portfolio",
+  description: "Personal portfolio website showcasing my work and experience",
+  icons: {
+    icon: "https://us-west-2.graphassets.com/wygkxnzkbr0kxmwk52wnr9qo/cmbc66qkefzhf07llamdifjwj",
+  },
+}
 
 export default function RootLayout({
   children,
