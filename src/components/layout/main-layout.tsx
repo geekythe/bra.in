@@ -1,3 +1,4 @@
+
 "use client";
 
 import React, { useState, Children, isValidElement, cloneElement, useEffect } from 'react';
@@ -54,7 +55,7 @@ export default function MainLayout({
                        activeSectionId === item.id ? "bg-sidebar-primary text-sidebar-primary-foreground" : "hover:bg-sidebar-accent hover:text-sidebar-accent-foreground"
                     )}
                   >
-                    <item.icon className="h-5 w-5" />
+                    <item.icon className="h-6 w-6" />
                     <span className="group-data-[collapsible=icon]:hidden">{item.title}</span>
                   </SidebarMenuButton>
                 </SidebarMenuItem>
