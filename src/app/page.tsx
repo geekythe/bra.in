@@ -52,7 +52,7 @@ export default function PortfolioPage() {
       // The previousSectionId and animationDirection remain to ensure the outgoing animation completes
       // or is in its final state when the new section starts animating in.
       // They will be naturally updated on the next navigation.
-    }, 1000); // 1000ms = 1 second delay
+    }, 300); // 300ms delay
   };
 
   // Clear timeout on component unmount
@@ -95,3 +95,4 @@ export default function PortfolioPage() {
     </MainLayout>
   );
 }
+
