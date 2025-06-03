@@ -234,7 +234,7 @@ export default function CustomSidebar({ sections, activeSection, onSectionChange
               <button
                 key={section.id}
                 onClick={() => handleSectionClick(section.id)}
-                className={`relative w-full py-4 flex flex-col items-center justify-center border-b border-gray-800 ${
+                className={`relative w-full py-4 flex flex-col items-center justify-center border-b border-gray-100 ${
                   activeSection === section.id ? "text-white" : "text-gray-400 hover:text-white"
                 }`}
               >
