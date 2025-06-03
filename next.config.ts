@@ -16,6 +16,12 @@ const nextConfig: NextConfig = {
         port: '',
         pathname: '/**',
       },
+      {
+        protocol: 'https',
+        hostname: 'us-west-2.graphassets.com', // Added Hygraph CDN
+        port: '',
+        pathname: '/**',
+      },
     ],
   },
 };
