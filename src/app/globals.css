@@ -1,3 +1,4 @@
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -35,9 +36,10 @@
     --chart-1: 260 100% 60%;
     --chart-2: 180 100% 50%;
     --chart-3: 330 100% 55%;
-    --chart-4: 45 100% 55%;
+    --chart-4: 45 100% 55%; /* Orange/Yellow for blog/orange glow */
     --chart-5: 120 100% 50%;
 
+    /* Sidebar colors for the OLD sidebar, might be deprecated or reused if new sidebar is themed */
     --sidebar-background: 240 10% 6%;
     --sidebar-foreground: 240 10% 85%;
     --sidebar-primary: 260 100% 60%;
@@ -47,17 +49,18 @@
     --sidebar-border: 240 10% 15%;
     --sidebar-ring: 260 100% 70%;
 
-    /* Section-specific backgrounds (placeholders, actual styles are in section components) */
-    --section-bg-home: 240 10% 4%; 
+    /* Section-specific backgrounds */
+    --section-bg-home: 240 10% 4%;
     --section-bg-about: 250 20% 10%;
-    --section-bg-resume: 220 20% 12%; /* New */
+    --section-bg-resume: 220 20% 12%;
     --section-bg-portfolio: 230 25% 9%;
     --section-bg-blog: 260 30% 12%;
-    --section-bg-certifications: 270 25% 11%; /* New */
+    --section-bg-certifications: 270 25% 11%;
     --section-bg-contact: 245 15% 11%;
   }
 
   .dark {
+    /* Ensure dark theme variables match the root if needed, or define separately */
     --background: 252 32% 36%;
     --foreground: 240 10% 95%;
     --card: 252 32% 30%;
@@ -77,7 +80,7 @@
     --border: 252 32% 45%;
     --input: 252 32% 28%;
     --ring: 260 100% 70%;
-    
+
     --chart-1: 260 100% 60%;
     --chart-2: 180 100% 50%;
     --chart-3: 330 100% 55%;
@@ -148,26 +151,38 @@ html, body, #__next {
   padding: 0;
 }
 
+/* Ensure the main div inside body takes up full height for flex layout */
 body > div:first-child {
   display: flex;
   flex-direction: column;
   min-height: 100vh;
 }
 
-main {
+main.section-container { /* Target the main element specifically for flex-grow if needed */
   flex-grow: 1;
 }
+
 
 /* Cyberpunk Styles */
 .cyberpunk-text-glow {
   text-shadow: 0 0 5px hsl(var(--accent)), 0 0 10px hsl(var(--accent)), 0 0 15px hsl(var(--accent)/0.7), 0 0 20px hsl(var(--accent)/0.5);
 }
-.cyberpunk-pink-glow {
+.cyberpunk-pink-glow { /* Uses --accent (pink) */
   filter: drop-shadow(0 0 5px hsl(var(--accent)/0.8)) drop-shadow(0 0 10px hsl(var(--accent)/0.6));
 }
-.cyberpunk-purple-glow {
+.cyberpunk-purple-glow { /* Uses --primary (purple) */
    filter: drop-shadow(0 0 5px hsl(var(--primary)/0.8)) drop-shadow(0 0 10px hsl(var(--primary)/0.6));
 }
+.cyberpunk-glow { /* Generic glow, can be based on primary or a neutral bright color if not section specific */
+   filter: drop-shadow(0 0 5px hsl(var(--primary)/0.8)) drop-shadow(0 0 10px hsl(var(--primary)/0.6));
+}
+.cyberpunk-teal-glow { /* Uses --secondary (teal) */
+  filter: drop-shadow(0 0 5px hsl(var(--secondary)/0.8)) drop-shadow(0 0 10px hsl(var(--secondary)/0.6));
+}
+.cyberpunk-orange-glow { /* Uses --chart-4 (orange/yellow) */
+  filter: drop-shadow(0 0 5px hsl(var(--chart-4)/0.8)) drop-shadow(0 0 10px hsl(var(--chart-4)/0.6));
+}
+
 
 .cyberpunk-border {
   border: 1px solid hsl(var(--primary)/0.5);
@@ -180,25 +195,25 @@ main {
   100% { background-position: 0% 50%; }
 }
 .animated-gradient {
-  background-size: 300% 300%; /* Larger size for smoother gradient shifts */
-  animation: gradientAnimation 20s ease infinite; /* Slower animation */
+  background-size: 300% 300%;
+  animation: gradientAnimation 20s ease infinite;
 }
 
 /* Prose overrides for blog content */
 .prose-invert h1, .prose-invert h2, .prose-invert h3, .prose-invert h4, .prose-invert h5, .prose-invert h6 {
-  color: hsl(var(--foreground)); /* Ensure headings are white */
+  color: hsl(var(--foreground));
 }
 .prose-invert p, .prose-invert li, .prose-invert blockquote {
-  color: hsl(var(--foreground)/0.9); /* Slightly less bright for paragraph text */
+  color: hsl(var(--foreground)/0.9);
 }
 .prose-invert strong {
   color: hsl(var(--foreground));
 }
 .prose-invert a {
-  color: hsl(var(--accent)); /* Use accent color for links */
+  color: hsl(var(--accent));
 }
 .prose-invert code {
-  color: hsl(var(--secondary)); /* Use secondary for code */
+  color: hsl(var(--secondary));
   background-color: hsl(var(--background)/0.5);
   padding: 0.2em 0.4em;
   border-radius: 0.25rem;
@@ -216,3 +231,23 @@ main {
   -webkit-backdrop-filter: blur(4px);
   backdrop-filter: blur(4px);
 }
+
+/* Tailwind Scrollbar utilities (optional, for consistent scrollbar styling if desired) */
+.scrollbar-thin {
+  scrollbar-width: thin;
+  scrollbar-color: hsl(var(--muted)) hsl(var(--background));
+}
+.scrollbar-thumb-gray-700::-webkit-scrollbar-thumb {
+  background-color: hsl(var(--muted));
+  border-radius: 10px;
+  border: 3px solid hsl(var(--background));
+}
+.scrollbar-track-black::-webkit-scrollbar-track {
+  background-color: hsl(var(--background));
+}
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+    
