@@ -111,7 +111,7 @@
 
 /* Custom animations for section transitions */
 .section-container > div {
-  transition: transform 0.7s cubic-bezier(0.68, -0.55, 0.27, 1.55); /* Custom cubic-bezier for push effect */
+  transition: transform 0.7s ease-in-out; /* Smoother push effect */
 }
 
 .animate-slide-to-top {
