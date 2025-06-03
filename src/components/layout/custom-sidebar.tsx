@@ -174,7 +174,7 @@ export default function CustomSidebar({ sections, activeSection, onSectionChange
           <button
             key={section.id}
             onClick={() => handleSectionClick(section.id)}
-            className={`relative w-full py-4 flex flex-col items-center justify-center transition-all duration-300 border-b border-gray-700 ${ // Darker border
+            className={`relative w-full py-4 flex flex-col items-center justify-center transition-all duration-300 border-b border-gray-50 ${ // Darker border
               activeSection === section.id ? "text-white" : "text-gray-400 hover:text-white"
             }`}
           >
@@ -193,7 +193,7 @@ export default function CustomSidebar({ sections, activeSection, onSectionChange
         ))}
       </nav>
 
-      <div className="w-full py-4 flex flex-col items-center gap-4 border-t border-gray-700">
+      <div className="w-full py-4 flex flex-col items-center gap-4 border-t border-gray-50">
         <div className="flex flex-row items-center justify-center gap-3">
           <a href="#" aria-label="Facebook" className="text-gray-400 hover:text-white transition-colors">
             <Facebook className="w-4 h-4" />
@@ -234,7 +234,7 @@ export default function CustomSidebar({ sections, activeSection, onSectionChange
               <button
                 key={section.id}
                 onClick={() => handleSectionClick(section.id)}
-                className={`relative w-full py-4 flex flex-col items-center justify-center border-b border-gray-100 ${
+                className={`relative w-full py-4 flex flex-col items-center justify-center border-b border-gray-50 ${
                   activeSection === section.id ? "text-white" : "text-gray-400 hover:text-white"
                 }`}
               >
@@ -253,7 +253,7 @@ export default function CustomSidebar({ sections, activeSection, onSectionChange
             ))}
           </nav>
 
-          <div className="w-full py-4 flex flex-row items-center justify-center gap-4 border-t border-gray-800">
+          <div className="w-full py-4 flex flex-row items-center justify-center gap-4 border-t border-gray-50">
             <a href="#" aria-label="Facebook" className="text-gray-400 hover:text-white transition-colors">
               <Facebook className="w-4 h-4" />
             </a>
