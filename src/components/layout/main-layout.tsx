@@ -9,12 +9,12 @@ interface MainLayoutProps {
   navItems: NavItem[];
   activeSectionId: SectionId;
   onNavigate: (sectionId: SectionId) => void;
-  children: React.ReactNode; // This will be the section container
+  children: React.ReactNode; 
   animationDirection: 'up' | 'down' | 'none';
   previousSectionId: SectionId | null;
 }
 
-const sectionOrder: SectionId[] = ['home', 'about', 'blog', 'contact'];
+const sectionOrder: SectionId[] = ['home', 'about', 'blog', 'portfolio', 'contact']; // Added 'portfolio'
 
 
 export default function MainLayout({ 
@@ -28,18 +28,18 @@ export default function MainLayout({
   const [isClient, setIsClient] = useState(false);
 
   useEffect(() => {
-    setIsClient(true); // Ensure sidebar state cookie is only read/written on client
+    setIsClient(true); 
   }, []);
   
   return (
-    <SidebarProvider defaultOpen={isClient ? undefined : true}> {/* Conditionally set defaultOpen to avoid hydration mismatch */}
+    <SidebarProvider defaultOpen={isClient ? undefined : true}> 
       <div className="flex h-screen w-screen overflow-hidden">
-        <Sidebar variant="sidebar" collapsible="icon" className="border-r">
+        <Sidebar variant="sidebar" collapsible="icon" className="border-r border-sidebar-border">
           <SidebarHeader className="p-4">
             <h2 className="font-headline text-2xl text-sidebar-primary group-data-[collapsible=icon]:hidden">
               PortfolioFlow
             </h2>
-            <SidebarTrigger className="group-data-[collapsible=icon]:hidden ml-auto" />
+            <SidebarTrigger className="group-data-[collapsible=icon]:hidden ml-auto text-sidebar-foreground hover:text-sidebar-accent-foreground" />
           </SidebarHeader>
           <SidebarContent>
             <SidebarMenu>
@@ -50,7 +50,7 @@ export default function MainLayout({
                     isActive={activeSectionId === item.id}
                     tooltip={item.title}
                     className={cn(
-                      "w-full justify-start",
+                      "w-full justify-start text-sidebar-foreground",
                        activeSectionId === item.id ? "bg-sidebar-primary text-sidebar-primary-foreground" : "hover:bg-sidebar-accent hover:text-sidebar-accent-foreground"
                     )}
                   >
@@ -66,8 +66,6 @@ export default function MainLayout({
         <SidebarInset className="flex-1 relative overflow-hidden bg-background section-container">
            {Children.map(children, (child) => {
             if (isValidElement(child)) {
-              // This maps over the section components passed as children
-              // Each child is a section (HomeSection, AboutSection, etc.)
               const sectionId = child.props.id as SectionId;
               const isActive = sectionId === activeSectionId;
               const isPrev = sectionId === previousSectionId;
@@ -82,15 +80,13 @@ export default function MainLayout({
                 transformClass = animationDirection === 'up' ? 'animate-slide-to-top' : 'animate-slide-to-bottom';
                 zIndex = 5;
               } else {
-                 // Initial position for non-active/non-previous sections
                 const myIndex = sectionOrder.indexOf(sectionId);
                 const activeIdx = sectionOrder.indexOf(activeSectionId);
-                if(previousSectionId === null && myIndex !== activeIdx){ // Initial load, non-active are off-screen
+                if(previousSectionId === null && myIndex !== activeIdx){ 
                    transformClass = myIndex < activeIdx ? 'animate-slide-from-top' : 'animate-slide-from-bottom';
-                } else if (previousSectionId !== null) { // During transition, non-active/non-prev are off-screen
+                } else if (previousSectionId !== null) { 
                    transformClass = myIndex < activeIdx ? 'animate-slide-from-top' : 'animate-slide-from-bottom';
                 } else {
-                   // Fallback for initial load if it's not the active one but no previous exists
                    transformClass = 'animate-slide-from-bottom';
                 }
               }
