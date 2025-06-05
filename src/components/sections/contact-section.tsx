@@ -39,16 +39,17 @@ export default function ContactSection({ id }: SectionProps) {
       }}
     >
       {/* Background Image div */}
-      <div
-          className="absolute inset-0 z-0 bg-cover bg-center"
-{/*         className="absolute inset-0 z-0 bg-cover bg-center" */}
-       style={{
+{/*     // Old class: className="absolute inset-0 z-0 bg-cover bg-center" */}
+{/* // Old style: style={{ backgroundImage: "url('/florida.png')" }} */}
+<div
+  className="absolute inset-0 z-0 bg-cover bg-center"
+  style={{
     backgroundImage:
       "url('https://us-west-2.graphassets.com/wygkxnzkbr0kxmwk52wnr9qo/cmbjkyh67e7x207n3imaf0od2')"
   }}
-{/*         style={{ backgroundImage: "url('/florida.png')" }} */}
-        data-ai-hint="map florida"
-      >
+  data-ai-hint="map florida"
+>
+
         {/* Overlay to darken the background image for better text contrast */}
         <div className="absolute inset-0 bg-black/60 z-1"></div>
       </div>
