@@ -40,7 +40,8 @@ export default function ContactSection({ id }: SectionProps) {
     >
       {/* Background Image div */}
       <div
-        className="absolute inset-0 z-0 bg-cover bg-center"
+        className="absolute inset-0 z-0 bg-fit bg-center"
+{/*         className="absolute inset-0 z-0 bg-cover bg-center" */}
         style={{ backgroundImage: "url('/florida.png')" }}
         data-ai-hint="map florida"
       >
