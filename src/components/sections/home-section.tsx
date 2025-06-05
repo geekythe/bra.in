@@ -75,13 +75,13 @@ export default function HomeSection({ id }: SectionProps) {
       {/* Content */}
       <div className="relative z-10 h-full w-full flex flex-col items-center justify-end text-white text-center px-4 pb-12">
         <div className="w-full flex flex-col  items-center mb-8 ">
-          <p className="text-xl mb-2 font-light cyberpunk-text-glow">Hi, I am</p>
+          <p className="text-xl mb-2 font-light ">Hi, I am</p>
 
           <h1 className="text-5xl md:text-7xl font-bold mb-4 ">Kenneth Webber</h1>
 
           <h4 className="text-xl mb-8">
             I am{" "}
-            <strong className="text-[#21A2EF] cyberpunk-text-glow">
+            <strong className="text-[#21A2EF] ">
               {typedText}
               <span className="animate-pulse">|</span>
             </strong>
