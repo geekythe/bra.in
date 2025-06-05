@@ -178,7 +178,7 @@ export default function PortfolioSection({ id }: SectionProps) {
                 <path d="M16.24 7.76a6 6 0 0 1 0 8.49m-8.48-.01a6 6 0 0 1 0-8.49m11.31-2.82a10 10 0 0 1 0 14.14m-14.14 0a10 10 0 0 1 0-14.14" />
               </svg>
             </div>
-            <h2 className="text-5xl font-bold text-white mb-12 cyberpunk-text-glow">Portfolio</h2>
+            <h2 className="text-5xl font-bold text-white mb-12 ">Portfolio</h2>
 
             {/* Filter Buttons */}
             <div className="flex flex-wrap justify-center gap-6 mb-12">
