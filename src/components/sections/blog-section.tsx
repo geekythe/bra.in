@@ -119,7 +119,7 @@ export default function BlogSection({ id }: SectionProps) {
               <div className="flex justify-center mb-2">
                 <BookOpen className="text-white" size={24} />
               </div>
-              <h2 className="text-5xl font-bold text-white mb-8 cyberpunk-text-glow">blog</h2>
+              <h2 className="text-5xl font-bold text-white mb-8 cyberpunk-text-glow">Blog</h2>
             </div>
 
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
