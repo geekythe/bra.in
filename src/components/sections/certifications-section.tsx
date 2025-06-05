@@ -268,7 +268,7 @@ export default function CertificationsSection({ id }: SectionProps) {
             <div className="flex justify-center mb-2">
               <Award className="text-white" size={24} />
             </div>
-            <h2 className="text-5xl font-bold text-white mb-12 cyberpunk-text-glow">Certifications</h2>
+            <h2 className="text-5xl font-bold text-white mb-12 ">Certifications</h2>
 
             <div className="flex flex-wrap justify-center gap-8 mb-12">
               {filters.map((filter) => (
