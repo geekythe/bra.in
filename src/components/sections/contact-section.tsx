@@ -61,7 +61,7 @@ export default function ContactSection({ id }: SectionProps) {
             {/* Contact Header */}
             <div className="flex flex-col items-center mb-12">
               <PhoneCall size={48} className="mb-4 text-accent" strokeWidth={1} />
-              <h1 className="text-4xl md:text-5xl font-bold tracking-tight ">CONTACT</h1>
+              <h1 className="text-4xl md:text-5xl font-bold tracking-tight ">Contact</h1>
             </div>
 
             {/* Reach Me Section */}
