@@ -31,13 +31,13 @@ export default function ContactSection({ id }: SectionProps) {
   return (
     <div 
       id={id} 
-      className="flex h-full w-full text-white overflow-hidden relative" // Added relative for pseudo-element
-      style={{
+      className="flex h-full w-full text-white overflow-hidden bg-background/20 backdrop-blur-sm relative" // Added relative for pseudo-element
+    >
+{/*       style={{
         // Fallback background color in case image doesn't load or for styling purposes
         // This will be mostly covered by the background image.
         backgroundColor: 'hsl(var(--section-bg-contact))', 
-      }}
-    >
+      }} */}
       {/* Background Image div */}
 {/*     // Old class: className="absolute inset-0 z-0 bg-cover bg-center" */}
 {/* // Old style: style={{ backgroundImage: "url('/florida.png')" }} */}
