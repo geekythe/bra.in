@@ -113,7 +113,7 @@ export default function AboutSection({ id }: SectionProps) {
           <div className="flex justify-center mb-4">
             <User className="text-white" size={32} />
           </div>
-          <h1 className="text-5xl font-bold text-white cyberpunk-text-glow">About Me</h1>
+          <h1 className="text-5xl font-bold text-white ">About Me</h1>
         </div>
 
         <div className="mb-20">
