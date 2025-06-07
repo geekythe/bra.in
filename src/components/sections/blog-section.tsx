@@ -43,7 +43,7 @@ export default function BlogSection({ id }: SectionProps) {
   )
 
   return (
-    <div id={id} className="h-full w-full overflow-y-auto bg-[#563f7b] py-12 px-4 md:px-8">
+    <div id={id} className="h-full w-full overflow-y-auto bg-[#631651] py-12 px-4 md:px-8">
     <AnimatePresence mode="wait">
       {selectedBlog ? (
         <motion.div
