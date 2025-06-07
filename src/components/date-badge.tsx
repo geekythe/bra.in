@@ -11,7 +11,7 @@ interface DateBadgeProps {
 const DateBadge: React.FC<DateBadgeProps> = ({ date, className = "" }) => {
   return (
     <div className={cn("relative inline-block", className)}>
-      <div className="relative inline-flex items-center bg-[#EA3AB8] text-white font-semibold text-xs px-4 py-1 cyberpunk-pink-glow">
+      <div className="relative inline-flex items-center bg-[#EA3AB8] text-white font-semibold text-xs px-4 py-1 ">
         {date}
         {/* Arrow shape on left side */}
         <div className="absolute left-0  top-0 h-full w-2 flex items-center justify-center">
