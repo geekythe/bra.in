@@ -56,7 +56,7 @@ export default function ContactSection({ id }: SectionProps) {
                 <div className="w-16 h-16 md:w-20 md:h-20 flex items-center justify-center mb-2 lg:mb-0 flex-shrink-0">
                   <MapPin size={42} strokeWidth={1.5} className="text-white" />
                 </div>
-                <div className="text-xs font-semibold text-center lg:text-left text-foreground/90">
+                <div className="text-xs font-semibold text-center lg:text-left text-white">
                   <div>BASED IN</div>
                   <div>RIVERVIEW</div>
                   <div>FLORIDA, USA</div>
@@ -68,7 +68,7 @@ export default function ContactSection({ id }: SectionProps) {
                 <div className="w-16 h-16 md:w-20 md:h-20 flex items-center justify-center mb-2 lg:mb-0 flex-shrink-0">
                   <Phone size={42} strokeWidth={1.5} className="text-white" />
                 </div>
-                <div className="text-xs font-semibold text-center lg:text-left text-foreground/90">TEL: (813) 419-9723</div>
+                <div className="text-xs font-semibold text-center lg:text-left text-white">TEL: (813) 419-9723</div>
               </div>
 
               {/* Info Box 3: Email */}
@@ -76,7 +76,7 @@ export default function ContactSection({ id }: SectionProps) {
                 <div className="w-16 h-16 md:w-20 md:h-20 flex items-center justify-center mb-2 lg:mb-0 flex-shrink-0">
                   <Mail size={42} strokeWidth={1.5} className="text-white" />
                 </div>
-                <div className="text-xs font-semibold text-center lg:text-left text-foreground/90 ">
+                <div className="text-xs font-semibold text-center lg:text-left text-white ">
                   KennethWebber<br/>@geekyandthebra.in
                 </div>
               </div>
@@ -86,7 +86,7 @@ export default function ContactSection({ id }: SectionProps) {
                 <div className="w-16 h-16 md:w-20 md:h-20 flex items-center justify-center mb-2 lg:mb-0 flex-shrink-0">
                   <Linkedin size={42} strokeWidth={1.5} className="text-white" />
                 </div>
-                <div className="text-xs font-semibold text-center lg:text-left text-foreground/90">FREELANCE AVAILABLE</div>
+                <div className="text-xs font-semibold text-center lg:text-left text-white">FREELANCE AVAILABLE</div>
               </div>
             </div>
           </div>
@@ -101,7 +101,7 @@ export default function ContactSection({ id }: SectionProps) {
               className="grid grid-cols-1 md:grid-cols-2 gap-6  p-3 rounded-lg "
             >
               <div>
-                <label htmlFor="contact-name" className="block text-xs mb-2 text-foreground/80 uppercase">NAME</label>
+                <label htmlFor="contact-name" className="block text-xs mb-2 text-white uppercase">NAME</label>
                 <input
                   id="contact-name"
                   type="text"
@@ -112,7 +112,7 @@ export default function ContactSection({ id }: SectionProps) {
                 />
               </div>
               <div>
-                <label htmlFor="contact-email" className="block text-xs mb-2 text-foreground/80 uppercase">EMAIL</label>
+                <label htmlFor="contact-email" className="block text-xs mb-2 text-white uppercase">EMAIL</label>
                 <input
                   id="contact-email"
                   type="email"
@@ -123,7 +123,7 @@ export default function ContactSection({ id }: SectionProps) {
                 />
               </div>
               <div className="md:col-span-2">
-                <label htmlFor="contact-message" className="block text-xs mb-2 text-foreground/80 uppercase">MESSAGE</label>
+                <label htmlFor="contact-message" className="block text-xs mb-2 text-white uppercase">MESSAGE</label>
                 <textarea
                   id="contact-message"
                   value={message}
