@@ -121,7 +121,7 @@ export default function CustomSidebar({ sections, activeSection, onSectionChange
 
   const MobileTopBar = () => (
     <div
-      className={`fixed top-0 z-50 md:hidden transition-all duration-300 flex items-center bg-black h-14 ${
+      className={`fixed top-0 z-50 md:hidden transition-all duration-300 flex items-center bg-black h-12 ${
         isMobileMenuOpen ? "right-0 left-auto " : "left-0 right-0 w-full "
       }`}
       style={
