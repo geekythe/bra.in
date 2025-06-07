@@ -154,7 +154,7 @@ export default function CustomSidebar({ sections, activeSection, onSectionChange
       <div className="w-full flex flex-col items-center">
         <div className="w-full aspect-square bg-black flex items-center justify-center ">
           {/* Ensure /profile-image.png is in public folder */}
-          <img src="https://us-west-2.graphassets.com/wygkxnzkbr0kxmwk52wnr9qo/cmbmmjvvnvl3407lp42inka1d" alt="Profile" className="w-full h-full object-cover" />
+          <img src="/log.png" alt="Profile" className="w-full h-full object-cover" />
         </div>
         <div className="hidden w-full md:flex">
           <div className="bg-[#6F42C1] w-1/2 py-2 flex items-center justify-center">
@@ -174,10 +174,8 @@ export default function CustomSidebar({ sections, activeSection, onSectionChange
           <button
             key={section.id}
             onClick={() => handleSectionClick(section.id)}
-            className={`relative w-full py-4 flex flex-col items-center justify-center transition-all duration-300 border-b border-gray-50 ${
-              activeSection === section.id
-                ? 'text-accent cyberpunk-text-glow' // Active state
-                : 'text-white hover:text-accent hover:cyberpunk-text-glow' // Default and hover state
+            className={`relative w-full py-4 flex flex-col items-center justify-center transition-all duration-300 border-b border-gray-50 ${ // Darker border
+              activeSection === section.id ? "text-white" : "text-gray-400 hover:text-white"
             }`}
           >
             {getIcon(section.id)}
@@ -227,7 +225,7 @@ export default function CustomSidebar({ sections, activeSection, onSectionChange
           <div className="w-full flex flex-col">
             <div className="w-full aspect-square bg-black flex items-center justify-center">
              {/* Ensure /profile-image.png is in public folder */}
-              <img src="https://us-west-2.graphassets.com/wygkxnzkbr0kxmwk52wnr9qo/cmbmmjvvnvl3407lp42inka1d" alt="Profile" className="w-full h-full object-cover" />
+              <img src="/log.png" alt="Profile" className="w-full h-full object-cover" />
             </div>
           </div>
 
@@ -237,9 +235,7 @@ export default function CustomSidebar({ sections, activeSection, onSectionChange
                 key={section.id}
                 onClick={() => handleSectionClick(section.id)}
                 className={`relative w-full py-4 flex flex-col items-center justify-center border-b border-gray-50 ${
-                  activeSection === section.id
-                    ? 'text-accent cyberpunk-text-glow' // Active state
-                    : 'text-white hover:text-accent hover:cyberpunk-text-glow' // Default and hover state
+                  activeSection === section.id ? "text-white" : "text-gray-400 hover:text-white"
                 }`}
               >
                 {getIcon(section.id)}
@@ -284,3 +280,5 @@ export default function CustomSidebar({ sections, activeSection, onSectionChange
     </>
   )
 }
+
+    
