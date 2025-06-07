@@ -92,7 +92,7 @@ export default function ContactSection({ id }: SectionProps) {
           </div>
 
           {/* Drop Me A Line Section (Form) */}
-          <div className="w-full pb-6">
+          <div className="w-full max-w-4xl pb-6">
             <div className="flex justify-center mb-2">
               <SectionHeader title="DROP ME A LINE" />
             </div>
@@ -128,7 +128,7 @@ export default function ContactSection({ id }: SectionProps) {
                   id="contact-message"
                   value={message}
                   onChange={(e) => setMessage(e.target.value)}
-                  rows={6}
+                  rows={8}
                   className="w-full bg-input border border-accent/30 text-foreground flex min-h-[80px] px-3 py-2 text-sm ring-offset-background placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 rounded-md"
                   required
                 />
