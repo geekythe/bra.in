@@ -174,8 +174,10 @@ export default function CustomSidebar({ sections, activeSection, onSectionChange
           <button
             key={section.id}
             onClick={() => handleSectionClick(section.id)}
-            className={`relative w-full py-4 flex flex-col items-center justify-center transition-all duration-300 border-b border-gray-50 ${ // Darker border
-              activeSection === section.id ? "text-white" : "text-gray-400 hover:text-white"
+            className={`relative w-full py-4 flex flex-col items-center justify-center transition-all duration-300 border-b border-gray-50 ${
+              activeSection === section.id
+                ? 'text-accent cyberpunk-text-glow' // Active state
+                : 'text-white hover:text-accent hover:cyberpunk-text-glow' // Default and hover state
             }`}
           >
             {getIcon(section.id)}
@@ -235,7 +237,9 @@ export default function CustomSidebar({ sections, activeSection, onSectionChange
                 key={section.id}
                 onClick={() => handleSectionClick(section.id)}
                 className={`relative w-full py-4 flex flex-col items-center justify-center border-b border-gray-50 ${
-                  activeSection === section.id ? "text-white" : "text-gray-400 hover:text-white"
+                  activeSection === section.id
+                    ? 'text-accent cyberpunk-text-glow' // Active state
+                    : 'text-white hover:text-accent hover:cyberpunk-text-glow' // Default and hover state
                 }`}
               >
                 {getIcon(section.id)}
@@ -280,5 +284,3 @@ export default function CustomSidebar({ sections, activeSection, onSectionChange
     </>
   )
 }
-
-    
