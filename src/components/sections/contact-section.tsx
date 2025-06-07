@@ -37,7 +37,7 @@ export default function ContactSection({ id }: SectionProps) {
       </div>
 
       {/* Content Overlay - scrollable */}
-      <div className="relative z-10 flex flex-col items-center bg-background/20  h-full overflow-y-auto py-6 px-4 md:px-8 scrollbar-thin scrollbar-thumb-gray-700 scrollbar-track-black">
+      <div className="relative z-10 flex flex-col items-center bg-background/40  h-full overflow-y-auto py-6 px-4 md:px-8 scrollbar-thin scrollbar-thumb-gray-700 scrollbar-track-black">
         <div className="w-full max-w-5xl">
           {/* Main Contact Header */}
           <div className="flex flex-col items-center mb-6">
