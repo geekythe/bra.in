@@ -6,7 +6,7 @@ export const metadata: Metadata = {
   title: "Kenneth Webber - Personal Portfolio",
   description: "Personal portfolio website showcasing my work and experience",
   icons: {
-    icon: "https://us-west-2.graphassets.com/wygkxnzkbr0kxmwk52wnr9qo/cmbc66qkefzhf07llamdifjwj",
+    icon: "https://us-west-2.graphassets.com/wygkxnzkbr0kxmwk52wnr9qo/cmbmmjvvkvibm07llms7btje6",
   },
 }
 
