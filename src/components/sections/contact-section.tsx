@@ -92,7 +92,7 @@ export default function ContactSection({ id }: SectionProps) {
           </div>
 
           {/* Drop Me A Line Section (Form) */}
-          <div className="w-full max-w-7xl flex flex-col justify-center items-center pb-6">
+          <div className="w-full flex flex-col justify-center items-center pb-6">
             <div className="flex justify-center mb-2">
               <SectionHeader title="DROP ME A LINE" />
             </div>
