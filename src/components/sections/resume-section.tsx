@@ -108,7 +108,7 @@ export default function ResumeSection({ id }: SectionProps) {
         <div className="flex justify-center mb-4">
           <FileText className="text-white" size={32} />
         </div>
-        <h1 className="text-5xl font-bold text-white ">Resume</h1>
+        <h1 className="text-5xl font-bold text-white cyberpunk-text-glow">resume</h1>
       </div>
 
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
@@ -276,7 +276,7 @@ export default function ResumeSection({ id }: SectionProps) {
           </div>
 
           {/* Testimonials Section */}
-          <div>
+          <div className="flex flex-col justify-center items-center" >
             <div className="flex justify-center mb-8">
               <SectionHeader title="TESTIMONIALS" className="mb-0" />
             </div>
