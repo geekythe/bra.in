@@ -15,7 +15,7 @@ const DateBadge: React.FC<DateBadgeProps> = ({ date, className = "" }) => {
         {date}
         {/* Arrow shape on left side */}
         <div className="absolute left-0  top-0 h-full w-2 flex items-center justify-center">
-          <div className="w-0 h-0 border-y-[12px] border-y-transparent border-l-[12px] border-l-[#1E94DA] "></div>
+          <div className="w-0 h-0 border-y-[12px] border-y-transparent border-l-[12px] border-l-[#48347E] "></div>
         </div>
       </div>
     </div>
