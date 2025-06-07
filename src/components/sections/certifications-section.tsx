@@ -244,15 +244,20 @@ export default function CertificationsSection({ id }: SectionProps) {
 
                         {selectedCertification.credentialurl && (
                           <div>
-                            <a
-                              href={selectedCertification.credentialurl}
-                              target="_blank"
-                              rel="noopener noreferrer"
-                              className="inline-block w-full text-center px-6 py-3 bg-[#EA3AB8] text-white rounded-md hover:bg-[#EA3AB8]/80 transition-colors cyberpunk-glow"
-                            >
-                              Verify Credential
-                            </a>
-                          </div>
+                          <a
+                            href={selectedCertification.credentialurl}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="inline-block w-full font-bold text-center px-6 py-3 bg-[#EA3AB8] text-white rounded-md hover:bg-[#EA3AB8]/80 transition-all"
+                            style={{
+                              textShadow: '2px 2px 0 #000', // Offset, no blur, cyan shadow
+                            }}
+                          >
+                            Verify Credential
+                          </a>
+                        </div>
+                        
+                        
                         )}
                       </div>
                     </div>
