@@ -101,7 +101,7 @@ export default function ResumeSection({ id }: SectionProps) {
 
 
   return (
-    <div id={id} className="h-full w-full overflow-y-auto bg-gradient-to-br from-[#21A2EF] to-[#1A82BF] py-12 px-4 animated-gradient">
+    <div id={id} className="h-full w-full overflow-y-auto bg-[#48347E] py-12 px-4 animated-gradient">
     <div className="max-w-6xl mx-auto">
       {/* Resume Header */}
       <div className="flex flex-col items-center justify-center mb-16">
