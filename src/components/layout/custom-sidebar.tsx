@@ -174,7 +174,7 @@ export default function CustomSidebar({ sections, activeSection, onSectionChange
           <button
             key={section.id}
             onClick={() => handleSectionClick(section.id)}
-            className={`relative w-full py-4 flex flex-col items-center justify-center transition-all duration-300 border-b border-gray-50 ${
+            className={`relative w-full py-4 flex flex-col items-center justify-center transition-all duration-10 border-b border-gray-50 ${
               activeSection === section.id
                 ? 'text-accent' // Active state
                 : 'text-white hover:text-accent ' // Default and hover state
