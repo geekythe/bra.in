@@ -175,7 +175,7 @@ export default function CertificationsSection({ id }: SectionProps) {
                   />
                 </div>
 
-                <div className="p-8">
+                <div className="p-8 bg-gray-300 text-black">
                   <div className="max-w-4xl mx-auto">
                     <div className="flex justify-between items-start mb-4">
                       <h1 className="text-3xl md:text-4xl font-bold text-white cyberpunk-text-glow">
@@ -185,22 +185,22 @@ export default function CertificationsSection({ id }: SectionProps) {
                         {selectedCertification.date}
                       </span>
                     </div>
-                    <p className="text-white/70 text-lg mb-8">Issued by {selectedCertification.issuer}</p>
+                    <p className=" text-lg mb-8">Issued by <strong className="underline">{selectedCertification.issuer}</strong></p>
 
                     <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-8">
                       <div className="md:col-span-2">
-                        <h2 className="text-xl font-semibold text-white mb-4">Certification Overview</h2>
-                        <p className="text-white/90 mb-6 leading-relaxed">{selectedCertification.description}</p>
+                        <h2 className="text-xl font-semibold  mb-4">Certification Overview</h2>
+                        <p className=" mb-6 leading-relaxed">{selectedCertification.description}</p>
                         {selectedCertification.details && (
-                          <p className="text-white/90 leading-relaxed">{selectedCertification.details}</p>
+                          <p className=" leading-relaxed">{selectedCertification.details}</p>
                         )}
                       </div>
 
                       <div>
-                        <h2 className="text-xl font-semibold text-white mb-4">Certification Details</h2>
+                        <h2 className="text-xl font-semibold  mb-4">Certification Details</h2>
 
                         <div className="mb-6">
-                          <h3 className="text-sm font-medium text-white/70 mb-2">CATEGORY</h3>
+                          <h3 className="text-sm font-medium  mb-2">CATEGORY</h3>
                           <div className="flex flex-wrap gap-2">
                             {(() => {
                               const cats =
@@ -221,14 +221,14 @@ export default function CertificationsSection({ id }: SectionProps) {
                           </div>
                         </div>
 
-                        <div className="mb-6">
-                          <h3 className="text-sm font-medium text-white/70 mb-2">CREDENTIAL ID</h3>
-                          <p className="text-white">{selectedCertification.credentialId}</p>
-                        </div>
+                        {/* <div className="mb-6">
+                          <h3 className="text-sm font-medium  mb-2">CREDENTIAL ID</h3>
+                          <p className="">{selectedCertification.credentialId}</p>
+                        </div> */}
 
                         {selectedCertification.skill?.length > 0 && (
                           <div className="mb-6">
-                            <h3 className="text-sm font-medium text-white/70 mb-2">SKILLS</h3>
+                            <h3 className="text-sm font-medium  mb-2">SKILLS</h3>
                             <div className="flex flex-wrap gap-2">
                               {selectedCertification.skill.map((skill, index) => (
                                 <span
@@ -243,19 +243,26 @@ export default function CertificationsSection({ id }: SectionProps) {
                         )}
 
                         {selectedCertification.credentialurl && (
-                          <div>
-                          <a
-                            href={selectedCertification.credentialurl}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            className="inline-block w-full font-bold text-center px-6 py-3 bg-[#EA3AB8] text-white rounded-md hover:bg-[#EA3AB8]/80 transition-all"
-                            style={{
-                              textShadow: '2px 2px 0 #000', // Offset, no blur, cyan shadow
-                            }}
-                          >
-                            Verify Credential
-                          </a>
-                        </div>
+                        <div>
+                          {/* href={selectedCertification.credentialurl} */}
+                        <a
+                          href="https://www.linkedin.com/in/therealkennethwebber/details/certifications/"
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="inline-block w-full font-bold text-center px-6 py-3 bg-[#EA3AB8] text-white rounded-md hover:bg-[#EA3AB8]/80 transition-all"
+                          style={{
+                            textShadow: `
+                              1.5px 1px 0 #000,
+                              2px 1.5px 0 #000,
+                              2.5px 2px 0 #000
+                            `,
+                          }}
+                        >
+                          Verify Credential
+                        </a>
+                      </div>
+                      
+                      
                         
                         
                         )}
