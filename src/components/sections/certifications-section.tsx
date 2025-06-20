@@ -123,7 +123,7 @@ export default function CertificationsSection({ id }: SectionProps) {
 
 
   return (
-    <div className="h-full w-full bg-[#4b3f7b] overflow-y-auto py-12 px-4 md:px-8 relative">
+    <div className="h-full w-full bg-[#2a0a1f] overflow-y-auto py-12 px-4 md:px-8 relative">
       {selectedCertification ? (
         <motion.div
           initial={{ opacity: 0 }}
@@ -252,9 +252,16 @@ export default function CertificationsSection({ id }: SectionProps) {
                           className="inline-block w-full font-bold text-center px-6 py-3 bg-[#EA3AB8] text-white rounded-md hover:bg-[#EA3AB8]/80 transition-all"
                           style={{
                             textShadow: `
-                              1.5px 1px 0 #000,
-                              2px 1.5px 0 #000,
-                              2.5px 2px 0 #000
+                                0.1px 0.1px 0 #000,
+  0.3px 0.2px 0 #000,
+  0.5px 0.3px 0 #000,
+  0.7px 0.4px 0 #000,
+  0.9px 0.5px 0 #000,
+  1.1px 0.6px 0 #000,
+  1.3px 0.7px 0 #000,
+  1.5px 0.8px 0 #000,
+  1.7px 0.9px 0 #000,
+                              2px 1px 0 #000
                             `,
                           }}
                         >
