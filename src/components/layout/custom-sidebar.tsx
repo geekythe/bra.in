@@ -151,17 +151,17 @@ export default function CustomSidebar({ sections, activeSection, onSectionChange
 
   const DesktopSidebar = () => (
     <aside className="fixed left-0 top-0 h-full w-32 bg-black flex-col items-center z-40 hidden md:flex">
-      <div className="w-full flex flex-col items-center">
+      <div className="w-full flex flex-col items-center border-b border-gray-50">
         <div className="w-full aspect-square bg-black flex items-center justify-center ">
           {/* Ensure /profile-image.png is in public folder */}
           <img src="/log.png" alt="Profile" className="w-full h-full object-cover" />
         </div>
         <div className="hidden w-full md:flex">
-          <div className="bg-[#6F42C1] w-1/2 py-2 flex items-center justify-center">
-            <p className="text-white text-sm text-center font-medium">Kenneth</p>
+          <div className="bg-[#6F42C1] w-1/2 py-3 flex items-center justify-center">
+            <p className="text-white text-md text-center font-medium">Kenneth</p>
           </div>
-          <div className="bg-[#21A2EF] w-1/2 py-2 flex items-center justify-center">
-            <span className="text-white text-xs text-center font-medium">
+          <div className="bg-[#21A2EF] w-1/2 py-3 flex items-center justify-center">
+            <span className="text-white text-md text-center font-medium">
               The <br />
               Brain
             </span>
@@ -169,7 +169,7 @@ export default function CustomSidebar({ sections, activeSection, onSectionChange
         </div>
       </div>
 
-      <nav className="flex flex-col items-center w-full flex-1 mt-4 overflow-y-auto scrollbar-thin scrollbar-thumb-gray-700 scrollbar-track-black">
+      <nav className="flex flex-col items-center w-full flex-1  overflow-y-auto scrollbar-thin scrollbar-thumb-gray-700 scrollbar-track-black">
         {sections.map((section) => (
           <button
             key={section.id}
@@ -224,7 +224,7 @@ export default function CustomSidebar({ sections, activeSection, onSectionChange
           transition={{ type: "tween", duration: 0.3, ease: "easeInOut" }}
           className="fixed left-0 top-0 bottom-0 w-40 bg-black flex flex-col z-[60] md:hidden" // Ensure high z-index
         >
-          <div className="w-full flex flex-col">
+          <div className="w-full flex flex-col border-b border-gray-50">
             <div className="w-full aspect-square bg-black flex items-center justify-center">
              {/* Ensure /profile-image.png is in public folder */}
               <img src="/log.png" alt="Profile" className="w-full h-full object-cover" />
