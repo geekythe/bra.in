@@ -13,17 +13,17 @@ const SectionHeader: React.FC<SectionHeaderProps> = ({ title, className = "" }) 
     <div className={cn("relative mb-12", className)}>
       <div className="relative z-10 inline-flex items-center">
         {/* Left Extension */}
-        <div className="absolute left-[-15px] -top-2 w-6 h-full bg-[#EA3AB8]/80 z-[-1]"></div>
-        <div className="absolute left-[-2px] -top-2 -z-20 w-0 h-0 border-b-[12px] border-l-[12px] border-transparent border-b-[#B82E90]"></div>
+        <div className="absolute left-[-15px] border-2 border-black -top-2 w-6 h-full bg-[#EA3AB8]/80 z-[-1]"></div>
+        <div className="absolute left-[-2px] -top-2  -z-20 w-0 h-0 border-b-[12px] border-l-[12px] border-transparent border-b-[#B82E90]"></div>
 
         {/* Main header */}
-        <div className="bg-[#EA3AB8] text-white px-6 py-[3px] z-10 uppercase text-[12px] font-extralight tracking-wider cyberpunk-pink-glow">
+        <div className="bg-[#EA3AB8] border-y-2 border-x-2 border-black text-white px-6 py-[3px] z-10 uppercase text-[12px] font-extralight tracking-wider ">
           {title}
         </div>
 
         {/* Right Extension */}
-        <div className="absolute right-[-15px] top-2 w-6 h-full -z-2 bg-[#EA3AB8]/80 z-[-1]"></div>
-        <div className="absolute right-[-2px] -bottom-2 w-0 h-0 -z-20 border-t-[12px] border-r-[12px] border-transparent border-t-[#B82E90]"></div>
+        <div className="absolute right-[-15px] border-2 border-black top-2 w-6 h-full -z-2 bg-[#EA3AB8]/80 z-[-1]"></div>
+        <div className="absolute right-[-2px]  -bottom-2 w-0 h-0 -z-20 border-t-[12px] border-r-[12px]  border-transparent border-t-[#B82E90]"></div>
       </div>
 
       {/* Horizontal line */}
