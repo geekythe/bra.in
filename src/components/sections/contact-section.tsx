@@ -138,7 +138,7 @@ export default function ContactSection({ id }: SectionProps) {
               <div className="md:col-span-2 mt-4 flex justify-center">
                 <button
                   type="submit"
-                  className="bg-[#21A2EF] hover:[#21A2EF]/80 text-white shadow-sm shadow-[#21A2EF] px-8 py-3 text-sm font-semibold rounded-md transition-colors"
+                  className="bg-[#21A2EF] hover:[#21A2EF]/80 text-white shadow-sm shadow-[#21A2EF] px-8 py-3 text-sm font-semibold rounded-md transition-colors uppercase"
                 >
                   SEND MESSAGE
                 </button>
