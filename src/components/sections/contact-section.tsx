@@ -3,15 +3,10 @@
 
 import type React from "react"
 import { useState } from "react"
-import dynamic from "next/dynamic"
+import Image from "next/image"
 import { Linkedin, MapPin, Phone, Mail, PhoneCall } from "lucide-react"
 import SectionHeader from "@/components/section-header"
 import type { SectionProps } from "@/types"
-
-// Import Leaflet map with no SSR
-const FloridaMap = dynamic(() => import("@/components/florida-map"), {
-  ssr: false,
-})
 
 export default function ContactSection({ id }: SectionProps) {
   const [name, setName] = useState("")
@@ -31,28 +26,35 @@ export default function ContactSection({ id }: SectionProps) {
 
   return (
     <div id={id} className="relative h-full w-full text-white overflow-hidden">
-      {/* Background Map */}
+      {/* Background Image */}
       <div className="absolute inset-0 z-0">
-        <FloridaMap />
+        <Image
+          src="/image.png"
+          alt="Abstract contact background"
+          data-ai-hint="abstract background"
+          fill
+          className="object-cover"
+        />
+        <div className="absolute inset-0 bg-background/50 z-10"></div>
       </div>
 
       {/* Content Overlay - scrollable */}
-      <div className="relative z-10 flex flex-col items-center bg-background/40  h-full overflow-y-auto py-6 md:py-8 px-4 md:px-8 scrollbar-thin scrollbar-thumb-gray-700 scrollbar-track-black">
+      <div className="relative z-20 flex flex-col items-center h-full overflow-y-auto py-6 md:py-8 px-4 md:px-8 scrollbar-thin scrollbar-thumb-gray-700 scrollbar-track-black">
         <div className="w-full max-w-5xl">
           {/* Main Contact Header */}
-          <div className="flex flex-col items-center mb-6">
+          <div className="flex flex-col items-center pb-2  ">
             <PhoneCall size={48} className="mb-4 text-white" strokeWidth={1.5} />
             <h1 className="text-4xl md:text-5xl font-bold tracking-tight ">Contact</h1>
           </div>
 
           {/* Reach Me Section */}
-          <div className="w-full mb-2">
-            <div className="flex justify-center">
+          <div className="w-full ">
+            <div className="flex justify-center   mb-2 ">
               <SectionHeader title="REACH ME" />
             </div>
-            <div className="grid  grid-cols-2 sm:grid-cols-2 lg:grid-cols-4 gap-2">
+            <div className="grid   grid-cols-2 sm:grid-cols-2 lg:grid-cols-4 gap-2">
               {/* Info Box 1: Location */}
-              <div className="flex flex-col items-center lg:flex-row p-4 rounded-lg ">
+              <div className="flex flex-col items-center lg:flex-row p-2 rounded-lg ">
                 <div className="w-16 h-16 md:w-20 md:h-20 flex items-center justify-center mb-2 lg:mb-0 flex-shrink-0">
                   <MapPin size={42} strokeWidth={1.5} className="text-white" />
                 </div>
@@ -64,7 +66,7 @@ export default function ContactSection({ id }: SectionProps) {
               </div>
 
               {/* Info Box 2: Phone */}
-              <div className="flex flex-col items-center lg:flex-row  p-4 rounded-lg ">
+              <div className="flex flex-col items-center lg:flex-row  p-2 rounded-lg ">
                 <div className="w-16 h-16 md:w-20 md:h-20 flex items-center justify-center mb-2 lg:mb-0 flex-shrink-0">
                   <Phone size={42} strokeWidth={1.5} className="text-white" />
                 </div>
@@ -72,7 +74,7 @@ export default function ContactSection({ id }: SectionProps) {
               </div>
 
               {/* Info Box 3: Email */}
-              <div className="flex flex-col items-center lg:flex-row  p-4 rounded-lg ">
+              <div className="flex flex-col items-center lg:flex-row  p-2 rounded-lg ">
                 <div className="w-16 h-16 md:w-20 md:h-20 flex items-center justify-center mb-2 lg:mb-0 flex-shrink-0">
                   <Mail size={42} strokeWidth={1.5} className="text-white" />
                 </div>
@@ -82,7 +84,7 @@ export default function ContactSection({ id }: SectionProps) {
               </div>
 
               {/* Info Box 4: LinkedIn */}
-              <div className="flex flex-col items-center lg:flex-row  p-4 rounded-lg ">
+              <div className="flex flex-col items-center lg:flex-row  p-2 rounded-lg ">
                 <div className="w-16 h-16 md:w-20 md:h-20 flex items-center justify-center mb-2 lg:mb-0 flex-shrink-0">
                   <Linkedin size={42} strokeWidth={1.5} className="text-white" />
                 </div>
@@ -92,13 +94,13 @@ export default function ContactSection({ id }: SectionProps) {
           </div>
 
           {/* Drop Me A Line Section (Form) */}
-          <div className="w-full md:px-16 items-center pb-6">
-            <div className="flex justify-center mb-2">
+          <div className="w-full md:px-16 items-center ">
+            <div className="flex justify-center  mt-2  mb-2 ">
               <SectionHeader title="DROP ME A LINE" />
             </div>
             <form
               onSubmit={handleSubmit}
-              className="grid grid-cols-1 md:grid-cols-2 gap-6  p-3 rounded-lg "
+              className="grid grid-cols-1 md:grid-cols-2 gap-6  py-6 px-3 rounded-lg "
             >
               <div>
                 <label htmlFor="contact-name" className="block text-xs mb-2 text-white uppercase">NAME</label>
@@ -136,7 +138,7 @@ export default function ContactSection({ id }: SectionProps) {
               <div className="md:col-span-2 flex justify-center mt-4">
                 <button
                   type="submit"
-                  className="bg-accent hover:bg-accent/80 text-accent-foreground px-8 py-3 text-sm font-semibold rounded-md  transition-colors"
+                  className="bg-[#21A2EF] hover:[#21A2EF]/80 text-white shadow-sm shadow-[#21A2EF] px-8 py-3 text-sm font-semibold rounded-md  transition-colors"
                 >
                   SEND MESSAGE
                 </button>
@@ -148,5 +150,3 @@ export default function ContactSection({ id }: SectionProps) {
     </div>
   )
 }
-
-    
