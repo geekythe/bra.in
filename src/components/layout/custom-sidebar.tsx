@@ -2,6 +2,7 @@
 "use client"
 
 import { useState, useEffect } from "react"
+import Image from "next/image";
 import {
   Home,
   User,
@@ -21,6 +22,7 @@ import {
 } from "lucide-react"
 import { motion, AnimatePresence } from "framer-motion"
 import type { SectionId } from '@/types';
+import { cn } from "@/lib/utils"
 
 interface CustomSidebarProps {
   sections: {
@@ -137,10 +139,36 @@ export default function CustomSidebar({ sections, activeSection, onSectionChange
       </div>
       <div className="flex-1 flex">
         <div className="bg-[#6F42C1] w-1/2 py-2 flex items-center justify-center">
-          <p className="text-white text-sm text-center font-medium">Kenneth</p>
+          <p className="text-white text-sm text-center font-medium" style={{
+                            textShadow: `
+                                0.1px 0.1px 0 #000,
+  0.3px 0.2px 0 #000,
+  0.5px 0.3px 0 #000,
+  0.7px 0.4px 0 #000,
+  0.9px 0.5px 0 #000,
+  1.1px 0.6px 0 #000,
+  1.3px 0.7px 0 #000,
+  1.5px 0.8px 0 #000,
+  1.7px 0.9px 0 #000,
+                              2px 1px 0 #000
+                            `,
+                          }}>Kenneth</p>
         </div>
         <div className="bg-[#21A2EF] w-1/2 py-2 flex items-center justify-center">
-          <span className="text-white text-xs text-center font-medium">
+          <span className="text-white text-xs text-center font-medium" style={{
+                            textShadow: `
+                                0.1px 0.1px 0 #000,
+  0.3px 0.2px 0 #000,
+  0.5px 0.3px 0 #000,
+  0.7px 0.4px 0 #000,
+  0.9px 0.5px 0 #000,
+  1.1px 0.6px 0 #000,
+  1.3px 0.7px 0 #000,
+  1.5px 0.8px 0 #000,
+  1.7px 0.9px 0 #000,
+                              2px 1px 0 #000
+                            `,
+                          }}>
             The <br />
             Brain
           </span>
@@ -152,16 +180,47 @@ export default function CustomSidebar({ sections, activeSection, onSectionChange
   const DesktopSidebar = () => (
     <aside className="fixed left-0 top-0 h-full w-32 bg-black flex-col items-center z-40 hidden md:flex">
       <div className="w-full flex flex-col items-center border-b border-gray-50">
-        <div className="w-full aspect-square bg-black flex items-center justify-center ">
-          {/* Ensure /profile-image.png is in public folder */}
-          <img src="/log.png" alt="Profile" className="w-full h-full object-cover" />
+        <div className="w-full aspect-square bg-black flex items-center justify-center relative">
+          <Image 
+            src="/log.png" 
+            alt="Profile" 
+            fill
+            className="object-cover"
+            priority
+          />
         </div>
         <div className="hidden w-full md:flex">
           <div className="bg-[#6F42C1] w-1/2 py-3 flex items-center justify-center">
-            <p className="text-white text-md text-center font-medium">Kenneth</p>
+            <p className="text-white text-md text-center font-medium" style={{
+                            textShadow: `
+                                0.1px 0.1px 0 #000,
+  0.3px 0.2px 0 #000,
+  0.5px 0.3px 0 #000,
+  0.7px 0.4px 0 #000,
+  0.9px 0.5px 0 #000,
+  1.1px 0.6px 0 #000,
+  1.3px 0.7px 0 #000,
+  1.5px 0.8px 0 #000,
+  1.7px 0.9px 0 #000,
+                              2px 1px 0 #000
+                            `,
+                          }}>Kenneth</p>
           </div>
           <div className="bg-[#21A2EF] w-1/2 py-3 flex items-center justify-center">
-            <span className="text-white text-md text-center font-medium">
+            <span className="text-white text-md text-center font-medium"  style={{
+                            textShadow: `
+                                0.1px 0.1px 0 #000,
+  0.3px 0.2px 0 #000,
+  0.5px 0.3px 0 #000,
+  0.7px 0.4px 0 #000,
+  0.9px 0.5px 0 #000,
+  1.1px 0.6px 0 #000,
+  1.3px 0.7px 0 #000,
+  1.5px 0.8px 0 #000,
+  1.7px 0.9px 0 #000,
+                              2px 1px 0 #000
+                            `,
+                          }}>
               The <br />
               Brain
             </span>
@@ -174,11 +233,12 @@ export default function CustomSidebar({ sections, activeSection, onSectionChange
           <button
             key={section.id}
             onClick={() => handleSectionClick(section.id)}
-            className={`relative w-full py-4 flex flex-col items-center justify-center transition-all duration-10 border-b border-gray-50 ${
+            className={cn(
+              "relative w-full py-4 flex flex-col items-center justify-center border-b border-gray-50",
               activeSection === section.id
-                ? 'text-accent' // Active state
-                : 'text-white hover:text-accent ' // Default and hover state
-            }`}
+                ? "text-accent "
+                : "text-white hover:text-accent "
+            )}
           >
             {getIcon(section.id)}
             <span className="text-[10px] mt-1 uppercase tracking-wider font-light">{section.label}</span>
@@ -225,9 +285,14 @@ export default function CustomSidebar({ sections, activeSection, onSectionChange
           className="fixed left-0 top-0 bottom-0 w-40 bg-black flex flex-col z-[60] md:hidden" // Ensure high z-index
         >
           <div className="w-full flex flex-col border-b border-gray-50">
-            <div className="w-full aspect-square bg-black flex items-center justify-center">
-             {/* Ensure /profile-image.png is in public folder */}
-              <img src="/log.png" alt="Profile" className="w-full h-full object-cover" />
+            <div className="w-full aspect-square bg-black flex items-center justify-center relative">
+              <Image 
+                src="/log.png" 
+                alt="Profile" 
+                fill
+                className="object-cover"
+                priority
+              />
             </div>
           </div>
 
@@ -236,11 +301,12 @@ export default function CustomSidebar({ sections, activeSection, onSectionChange
               <button
                 key={section.id}
                 onClick={() => handleSectionClick(section.id)}
-                className={`relative w-full py-4 flex flex-col items-center justify-center border-b border-gray-50 ${
+                className={cn(
+                  "relative w-full py-4 flex flex-col items-center justify-center border-b border-gray-50",
                   activeSection === section.id
-                    ? 'text-accent ' // Active state
-                    : 'text-white hover:text-accent ' // Default and hover state
-                }`}
+                    ? "text-accent "
+                    : "text-white hover:text-accent "
+                )}
               >
                 {getIcon(section.id)}
                 <span className="text-xs mt-1 uppercase tracking-wider font-light">{section.label}</span>
