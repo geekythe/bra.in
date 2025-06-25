@@ -174,16 +174,17 @@ export default function CertificationsSection({ id }: SectionProps) {
                     className="w-full h-full object-contain"
                   />
                 </div>
+                <div className="bg-gray-300 w-full ">
 
-                <div className="p-8 bg-gray-300 text-black">
-                  <div className="max-w-4xl mx-auto">
+                <div className="  text-black max-w-4xl mx-auto md:flex flex-col md:flex-row justify-between px-auto py-8 ">
+                  <div className=" ">
                     <div className="flex justify-between items-start mb-4">
                       <h1 className="text-3xl md:text-4xl font-bold text-white cyberpunk-text-glow">
                         {selectedCertification.title}
                       </h1>
-                      <span className="text-sm font-medium px-3 py-1 rounded-full">
+                      {/* <span className="text-sm font-medium px-3 py-1 rounded-full">
                         {selectedCertification.date}
-                      </span>
+                      </span> */}
                     </div>
                     <p className=" text-lg mb-8">Issued by <strong className="underline">{selectedCertification.issuer}</strong></p>
 
@@ -196,12 +197,16 @@ export default function CertificationsSection({ id }: SectionProps) {
                         )}
                       </div>
 
-                      <div>
-                        <h2 className="text-xl font-semibold  mb-4">Certification Details</h2>
+                     
+                    </div>
+                  </div>
+                  <div>
+                  <div className="items-center justify-center text-center">
+                        <h2 className="text-xl font-semibold items-center  justify-center text-center mb-4">Certification Details</h2>
 
-                        <div className="mb-6">
+                        <div className="mb-6 ">
                           <h3 className="text-sm font-medium  mb-2">CATEGORY</h3>
-                          <div className="flex flex-wrap gap-2">
+                          <div className="flex flex-wrap items-center justify-center text-center gap-2 ">
                             {(() => {
                               const cats =
                                 typeof selectedCertification.category === "string" &&
@@ -229,7 +234,7 @@ export default function CertificationsSection({ id }: SectionProps) {
                         {selectedCertification.skill?.length > 0 && (
                           <div className="mb-6">
                             <h3 className="text-sm font-medium  mb-2">SKILLS</h3>
-                            <div className="flex flex-wrap gap-2">
+                            <div className="flex flex-wrap items-center justify-center text-center gap-2">
                               {selectedCertification.skill.map((skill, index) => (
                                 <span
                                   key={index}
@@ -274,8 +279,8 @@ export default function CertificationsSection({ id }: SectionProps) {
                         
                         )}
                       </div>
-                    </div>
                   </div>
+                </div>
                 </div>
               </div>
             </div>
