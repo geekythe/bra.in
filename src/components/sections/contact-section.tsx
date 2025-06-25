@@ -25,7 +25,7 @@ export default function ContactSection({ id }: SectionProps) {
   }
 
   return (
-    <div id={id} className="relative h-full w-full text-white overflow-hidden">
+    <div id={id} className="relative h-full w-full text-white ">
       {/* Background Image */}
       <div className="absolute inset-0 z-0">
         <Image
