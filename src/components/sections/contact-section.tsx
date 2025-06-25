@@ -1,4 +1,3 @@
-
 "use client"
 
 import type React from "react"
@@ -15,9 +14,7 @@ export default function ContactSection({ id }: SectionProps) {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault()
-    // Handle form submission
     console.log("Form submitted:", { name, email, message })
-    // You can add a toast notification here
     alert("Message sent (simulated)!")
     setName("")
     setEmail("")
@@ -25,13 +22,15 @@ export default function ContactSection({ id }: SectionProps) {
   }
 
   return (
-    <div id={id} className="relative h-full w-full text-white ">
+    <div
+      id={id}
+      className="relative w-full h-screen overflow-auto lg:overflow-hidden text-white"
+    >
       {/* Background Image */}
       <div className="absolute inset-0 z-0">
         <Image
           src="/image.png"
           alt="Abstract contact background"
-          data-ai-hint="abstract background"
           fill
           className="object-cover"
         />
@@ -39,22 +38,22 @@ export default function ContactSection({ id }: SectionProps) {
       </div>
 
       {/* Content Overlay */}
-      <div className="relative z-20 flex h-full items-start justify-center p-4 pt-16">
+      <div className="relative z-20 flex min-h-full items-start justify-center p-4 pt-16">
         <div className="w-full max-w-5xl flex flex-col items-center gap-y-4">
           {/* Main Contact Header */}
-          <div className="flex flex-col  items-center">
+          <div className="flex flex-col items-center">
             <PhoneCall size={48} className="mb-1 text-white" strokeWidth={1.5} />
             <h1 className="text-4xl md:text-5xl font-bold tracking-tight">Contact</h1>
           </div>
 
           {/* Reach Me Section */}
-          <div className="w-full ">
-            <div className="flex justify-center  ">
+          <div className="w-full">
+            <div className="flex justify-center">
               <SectionHeader title="REACH ME" />
             </div>
             <div className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-4 gap-2">
-              {/* Info Box 1: Location */}
-              <div className="flex flex-col items-center lg:flex-row p-2 rounded-lg ">
+              {/* Location */}
+              <div className="flex flex-col items-center lg:flex-row p-2 rounded-lg">
                 <div className="w-16 h-16 md:w-20 md:h-20 flex items-center justify-center mb-2 lg:mb-0 flex-shrink-0">
                   <MapPin size={42} strokeWidth={1.5} className="text-white" />
                 </div>
@@ -65,37 +64,41 @@ export default function ContactSection({ id }: SectionProps) {
                 </div>
               </div>
 
-              {/* Info Box 2: Phone */}
-              <div className="flex flex-col items-center lg:flex-row  p-2 rounded-lg ">
+              {/* Phone */}
+              <div className="flex flex-col items-center lg:flex-row p-2 rounded-lg">
                 <div className="w-16 h-16 md:w-20 md:h-20 flex items-center justify-center mb-2 lg:mb-0 flex-shrink-0">
                   <Phone size={42} strokeWidth={1.5} className="text-white" />
                 </div>
-                <div className="text-xs font-semibold text-center lg:text-left text-white">TEL: (813) 419-9723</div>
+                <div className="text-xs font-semibold text-center lg:text-left text-white">
+                  TEL: (813) 419-9723
+                </div>
               </div>
 
-              {/* Info Box 3: Email */}
-              <div className="flex flex-col items-center lg:flex-row  p-2 rounded-lg ">
+              {/* Email */}
+              <div className="flex flex-col items-center lg:flex-row p-2 rounded-lg">
                 <div className="w-16 h-16 md:w-20 md:h-20 flex items-center justify-center mb-2 lg:mb-0 flex-shrink-0">
                   <Mail size={42} strokeWidth={1.5} className="text-white" />
                 </div>
-                <div className="text-xs font-semibold text-center lg:text-left text-white ">
-                  KennethWebber<br/>@geekyandthebra.in
+                <div className="text-xs font-semibold text-center lg:text-left text-white">
+                  KennethWebber<br />@geekyandthebra.in
                 </div>
               </div>
 
-              {/* Info Box 4: LinkedIn */}
-              <div className="flex flex-col items-center lg:flex-row  p-2 rounded-lg ">
+              {/* LinkedIn */}
+              <div className="flex flex-col items-center lg:flex-row p-2 rounded-lg">
                 <div className="w-16 h-16 md:w-20 md:h-20 flex items-center justify-center mb-2 lg:mb-0 flex-shrink-0">
                   <Linkedin size={42} strokeWidth={1.5} className="text-white" />
                 </div>
-                <div className="text-xs font-semibold text-center lg:text-left text-white">FREELANCE AVAILABLE</div>
+                <div className="text-xs font-semibold text-center lg:text-left text-white">
+                  FREELANCE AVAILABLE
+                </div>
               </div>
             </div>
           </div>
 
-          {/* Drop Me A Line Section (Form) */}
-          <div className="w-full md:px-12 items-center ">
-            <div className="flex justify-center  mb-4 ">
+          {/* Contact Form */}
+          <div className="w-full md:px-12 items-center">
+            <div className="flex justify-center mb-4">
               <SectionHeader title="DROP ME A LINE" />
             </div>
             <form
@@ -109,7 +112,7 @@ export default function ContactSection({ id }: SectionProps) {
                   type="text"
                   value={name}
                   onChange={(e) => setName(e.target.value)}
-                  className="w-full bg-input border border-accent/30 text-foreground flex h-10 px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 rounded-md"
+                  className="w-full bg-input border border-accent/30 text-foreground flex h-10 px-3 py-2 text-sm ring-offset-background placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 rounded-md"
                   required
                 />
               </div>
@@ -120,7 +123,7 @@ export default function ContactSection({ id }: SectionProps) {
                   type="email"
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
-                  className="w-full bg-input border border-accent/30 text-foreground flex h-10 px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 rounded-md"
+                  className="w-full bg-input border border-accent/30 text-foreground flex h-10 px-3 py-2 text-sm ring-offset-background placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 rounded-md"
                   required
                 />
               </div>
@@ -138,7 +141,7 @@ export default function ContactSection({ id }: SectionProps) {
               <div className="md:col-span-2 mt-4 flex justify-center">
                 <button
                   type="submit"
-                  className="bg-[#21A2EF] hover:[#21A2EF]/80 text-white shadow-sm shadow-[#21A2EF] px-8 py-3 text-sm font-semibold rounded-md transition-colors uppercase"
+                  className="bg-[#21A2EF] hover:bg-[#1a8fd1] text-white shadow-sm shadow-[#21A2EF] px-8 py-3 text-sm font-semibold rounded-md transition-colors"
                 >
                   SEND MESSAGE
                 </button>
