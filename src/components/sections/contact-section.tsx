@@ -48,10 +48,10 @@ export default function ContactSection({ id }: SectionProps) {
 
           {/* Reach Me Section */}
           <div className="w-full ">
-            <div className="flex  justify-center my-8">
+            <div className="flex  justify-center mt-8 mb-6">
               <SectionHeader title="REACH ME" />
             </div>
-            <div className="grid mt-[-2] grid-cols-2 sm:grid-cols-2 lg:grid-cols-4 gap-2">
+            <div className="grid  grid-cols-2 sm:grid-cols-2 lg:grid-cols-4 gap-2">
               {/* Location */}
               <div className="flex flex-col items-center lg:flex-row p-2 rounded-lg">
                 <div className="w-16 h-16 md:w-20 md:h-20 flex items-center justify-center mb-2 lg:mb-0 flex-shrink-0">
