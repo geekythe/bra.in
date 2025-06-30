@@ -41,17 +41,17 @@ export default function ContactSection({ id }: SectionProps) {
       <div className="relative z-20 flex min-h-full items-start justify-center p-4 pt-16">
         <div className="w-full max-w-5xl flex flex-col items-center gap-y-4">
           {/* Main Contact Header */}
-          <div className="flex flex-col bg-red-900 mb-6 items-center">
+          <div className="flex flex-col  mb-2 items-center">
             <PhoneCall size={48} className="mb-1 text-white" strokeWidth={1.5} />
             <h1 className="text-4xl md:text-5xl font-bold tracking-tight">Contact</h1>
           </div>
 
           {/* Reach Me Section */}
-          <div className="w-full bg-green-600">
-            <div className="flex bg-red-500 justify-center mb-2">
+          <div className="w-full ">
+            <div className="flex  justify-center my-8">
               <SectionHeader title="REACH ME" />
             </div>
-            <div className="grid bg-blue-500 mb-4 grid-cols-2 sm:grid-cols-2 lg:grid-cols-4 gap-2">
+            <div className="grid bg-blue-500 grid-cols-2 sm:grid-cols-2 lg:grid-cols-4 gap-2">
               {/* Location */}
               <div className="flex flex-col items-center lg:flex-row p-2 rounded-lg">
                 <div className="w-16 h-16 md:w-20 md:h-20 flex items-center justify-center mb-2 lg:mb-0 flex-shrink-0">
@@ -98,7 +98,7 @@ export default function ContactSection({ id }: SectionProps) {
 
           {/* Contact Form */}
           <div className="w-full md:px-12 items-center">
-            <div className="flex justify-center bg-red-500 mb-4">
+            <div className="flex justify-center  my-8">
               <SectionHeader title="DROP ME A LINE" />
             </div>
             <form
