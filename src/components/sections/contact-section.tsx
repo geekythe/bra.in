@@ -47,11 +47,11 @@ export default function ContactSection({ id }: SectionProps) {
           </div>
 
           {/* Reach Me Section */}
-          <div className="w-full ">
-            <div className="flex  justify-center mb-2">
+          <div className="w-full bg-green-600">
+            <div className="flex bg-red-500 justify-center mb-2">
               <SectionHeader title="REACH ME" />
             </div>
-            <div className="grid  grid-cols-2 sm:grid-cols-2 lg:grid-cols-4 gap-2">
+            <div className="grid bg-blue-500 grid-cols-2 sm:grid-cols-2 lg:grid-cols-4 gap-2">
               {/* Location */}
               <div className="flex flex-col items-center lg:flex-row p-2 rounded-lg">
                 <div className="w-16 h-16 md:w-20 md:h-20 flex items-center justify-center mb-2 lg:mb-0 flex-shrink-0">
@@ -98,7 +98,7 @@ export default function ContactSection({ id }: SectionProps) {
 
           {/* Contact Form */}
           <div className="w-full md:px-12 items-center">
-            <div className="flex justify-center mb-4">
+            <div className="flex justify-center bg-red-500 mb-4">
               <SectionHeader title="DROP ME A LINE" />
             </div>
             <form
