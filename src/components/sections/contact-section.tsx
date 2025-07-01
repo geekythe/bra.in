@@ -48,7 +48,7 @@ export default function ContactSection({ id }: SectionProps) {
 
           {/* Reach Me Section */}
           <div className="w-full ">
-            <div className="flex  justify-center mt-8 mb-6">
+            <div className="flex  justify-center mt-8 mb-2">
               <SectionHeader title="REACH ME" />
             </div>
             <div className="grid  grid-cols-2 sm:grid-cols-2 lg:grid-cols-4 gap-2">
