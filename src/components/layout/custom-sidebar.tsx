@@ -85,7 +85,7 @@ export default function CustomSidebar({ sections, activeSection, onSectionChange
       case "about":
         return "bg-[#6F42C1]" // Purple
       case "resume":
-        return "bg-[#21A2EF]" // Blue
+        return "bg-[#fff]" // navblue
       case "certifications":
         return "bg-[#EA3AB8]" // Pink
       case "portfolio":
@@ -201,8 +201,8 @@ export default function CustomSidebar({ sections, activeSection, onSectionChange
   1.1px 0.6px 0 #000,
   1.3px 0.7px 0 #000,
   1.5px 0.8px 0 #000,
-  1.7px 0.9px 0 #000,
-                              2px 1px 0 #000
+  1.7px 0.9px 0 #000
+                             
                             `,
                           }}>Kenneth</p>
           </div>
@@ -217,8 +217,7 @@ export default function CustomSidebar({ sections, activeSection, onSectionChange
   1.1px 0.6px 0 #000,
   1.3px 0.7px 0 #000,
   1.5px 0.8px 0 #000,
-  1.7px 0.9px 0 #000,
-                              2px 1px 0 #000
+  1.5px 0.9px 0 #000
                             `,
                           }}>
               The <br />
@@ -263,12 +262,17 @@ export default function CustomSidebar({ sections, activeSection, onSectionChange
           <a href="#" aria-label="Twitter" className="text-gray-400 hover:text-white transition-colors">
             <Twitter className="w-4 h-4" />
           </a>
-          <a href="#" aria-label="LinkedIn" className="text-gray-400 hover:text-white transition-colors">
-            <Linkedin className="w-4 h-4" />
-          </a>
-          <a href="#" aria-label="Instagram" className="text-gray-400 hover:text-white transition-colors">
-            <Instagram className="w-4 h-4" />
-          </a>
+          <a
+  href="https://www.linkedin.com/in/therealkennethwebber/"
+  aria-label="LinkedIn"
+  target="_blank"
+  rel="noopener noreferrer"
+  className="text-gray-400 hover:text-white transition-colors"
+>
+  <Linkedin className="w-4 h-4" />
+</a>
+
+        
         </div>
       </div>
     </aside>
@@ -330,12 +334,16 @@ export default function CustomSidebar({ sections, activeSection, onSectionChange
             <a href="#" aria-label="Twitter" className="text-gray-400 hover:text-white transition-colors">
               <Twitter className="w-4 h-4" />
             </a>
-            <a href="#" aria-label="LinkedIn" className="text-gray-400 hover:text-white transition-colors">
-              <Linkedin className="w-4 h-4" />
-            </a>
-            <a href="#" aria-label="Instagram" className="text-gray-400 hover:text-white transition-colors">
-              <Instagram className="w-4 h-4" />
-            </a>
+            <a
+  href="https://www.linkedin.com/in/therealkennethwebber/"
+  aria-label="LinkedIn"
+  target="_blank"
+  rel="noopener noreferrer"
+  className="text-gray-400 hover:text-white transition-colors"
+>
+  <Linkedin className="w-4 h-4" />
+</a>
+
           </div>
         </motion.aside>
       )}
