@@ -247,7 +247,7 @@ export default function CustomSidebar({ sections, activeSection, onSectionChange
                 className={`absolute left-0 top-0 h-full w-1 ${getSectionColor(section.id)} ${getSectionGlowClass(
                   section.id,
                 )}`}
-                transition={{ type: "spring", stiffness: 300, damping: 30 }}
+                // transition={{ type: "spring", stiffness: 300, damping: 30 }}
               />
             )}
           </button>
